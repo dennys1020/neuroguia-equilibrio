@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NeuroGuía · Equilibrio</title>
+
+  <!-- Tipografías del diseño (Montserrat; Inter solo para los signos + / −) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@600&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- 1) Estilos del módulo (todo bajo .ngeq / --ngeq-*) -->
+  <link rel="stylesheet" href="neuroguia-equilibrio.css?v=14">
+
+  <!-- Estilos de la "app anfitriona" de ejemplo (no forman parte del módulo) -->
+  <style>
+    html, body { margin: 0; min-height: 100%; background: #e2e8f0; font-family: system-ui, sans-serif; }
+    .host-bar { display: flex; gap: 12px; align-items: center; justify-content: center; padding: 10px 16px; background: #0f172a; color: #fff; font-size: 13px; }
+    .host-bar button { background: #1e293b; color: #fff; border: 1px solid #334155; border-radius: 8px; padding: 6px 10px; cursor: pointer; }
+    .host-landing { max-width: 560px; margin: 40px auto; padding: 24px; background: #fff; border-radius: 16px; text-align: center; }
+    #equilibrio-root { min-height: calc(100vh - 44px); }
+  </style>
+</head>
+<body>
+  <!-- Barra simulada de la app NeuroGuía (anfitriona) -->
+  <div class="host-bar">
+    <span>NeuroGuía · App principal (demo)</span>
+    <button type="button" id="host-open">Abrir módulo Equilibrio</button>
+  </div>
+
+  <!-- Pantalla de la app anfitriona a la que se regresa con onExit -->
+  <section class="host-landing" id="host-landing" hidden>
+    <h2>Área Motora</h2>
+    <p>Esta vista pertenece a la app anfitriona. El módulo se cerró con <code>onExit</code>.</p>
+    <button type="button" id="host-back">Entrar a «Equilibrio y control postural»</button>
+  </section>
+
+  <!-- 2) Contenedor donde se monta el módulo -->
+  <div id="equilibrio-root"></div>
+
+  <!-- 3) Lógica del módulo (expone window.NeuroGuia.Equilibrio) -->
+  <script src="neuroguia-equilibrio.js?v=14"></script>
+  <script>
+    // Ejemplo de integración con la app principal
+    (function () {
+      var root = document.getElementById('equilibrio-root');
+      var landing = document.getElementById('host-landing');
+      var modulo = null;
+
+      function abrir() {
+        landing.hidden = true;
+        if (modulo) return;
+        modulo = NeuroGuia.Equilibrio.mount(root, {
+          assetsPath: 'assets/',
+          hashPrefix: 'equilibrio',
+          onExit: cerrar,                            // botón "← Motora" del inicio del área
+          onNavigate: function (estado) { /* p. ej. analítica */ }
+        });
+      }
+      function cerrar() {
+        if (modulo) { modulo.destroy(); modulo = null; }
+        history.replaceState(null, '', location.pathname);
+        landing.hidden = false;
+      }
+
+      document.getElementById('host-open').addEventListener('click', abrir);
+      document.getElementById('host-back').addEventListener('click', abrir);
+      abrir();
+    })();
+  </script>
+</body>
+</html>

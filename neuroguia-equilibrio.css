@@ -1,0 +1,391 @@
+/* ==========================================================================
+   NeuroGuía · Módulo "Equilibrio y control postural" (Grupo 3)
+   --------------------------------------------------------------------------
+   - Todo el CSS vive bajo la clase raíz `.ngeq` (namespace del módulo).
+   - Clases con metodología BEM:  .ngeq-bloque__elemento--modificador
+   - Tokens de diseño (Figma) como variables CSS con prefijo `--ngeq-`,
+     declaradas en `.ngeq` (no en :root) para no contaminar la app anfitriona.
+   ========================================================================== */
+
+.ngeq {
+  /* ---- Color (extraídos del archivo de Figma) ---- */
+  --ngeq-c-primary: #2563eb;
+  --ngeq-c-primary-soft: #eff6ff;
+  --ngeq-c-ink: #0f172a;
+  --ngeq-c-ink-2: #334155;
+  --ngeq-c-muted: #64748b;
+  --ngeq-c-teal: #0ea5a5;
+  --ngeq-c-violet: #7c3aed;
+  --ngeq-c-violet-soft: #f5f3ff;
+  --ngeq-c-danger: #dc2626;
+  --ngeq-c-bg: #f8fafc;
+  --ngeq-c-surface: #ffffff;
+  --ngeq-c-border: #e2e8f0;
+  --ngeq-c-scrim: rgba(15, 23, 42, 0.4);
+
+  /* ---- Tipografía ---- */
+  --ngeq-font: "Montserrat", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --ngeq-font-symbol: "Inter", system-ui, sans-serif;
+
+  /* ---- Radios / espaciado ---- */
+  --ngeq-r-sm: 10px;
+  --ngeq-r-md: 12px;
+  --ngeq-r-lg: 14px;
+  --ngeq-r-xl: 18px;
+  --ngeq-r-2xl: 20px;
+  --ngeq-gutter: 20px;
+  --ngeq-max-w: 560px;
+  --ngeq-header-h: 76px;
+
+  /* Ruta base de los íconos (la sobrescribe el JS según `assetsPath`) */
+  --ngeq-assets: "assets/";
+
+  position: relative;
+  box-sizing: border-box;
+  max-width: var(--ngeq-max-w);
+  min-height: 100%;
+  margin: 0 auto;
+  background: var(--ngeq-c-bg);
+  color: var(--ngeq-c-ink);
+  font-family: var(--ngeq-font);
+  font-size: 14px;
+  line-height: 21px;
+  -webkit-font-smoothing: antialiased;
+}
+/* Reset local: :where() deja la especificidad en 0 para que las clases BEM
+   del módulo siempre ganen, y no afecta nada fuera de .ngeq */
+:where(.ngeq) *, :where(.ngeq) *::before, :where(.ngeq) *::after { box-sizing: border-box; }
+:where(.ngeq) :where(h1, h2, h3, p, ul, ol, fieldset, legend, figure) { margin: 0; padding: 0; }
+:where(.ngeq) :where(ul, ol) { list-style: none; }
+:where(.ngeq) :where(fieldset) { border: 0; min-width: 0; }
+:where(.ngeq) :where(button) { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; text-align: left; }
+:where(.ngeq) :where(a) { color: inherit; }
+:where(.ngeq) :focus-visible { outline: 2px solid var(--ngeq-c-primary); outline-offset: 2px; border-radius: 6px; }
+.ngeq [hidden] { display: none !important; }
+/* El título recibe foco al cambiar de vista (lectores de pantalla) sin mostrar el anillo */
+.ngeq h1[tabindex="-1"]:focus { outline: none; }
+
+/* Texto solo para lectores de pantalla */
+.ngeq-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* --------------------------------------------------------------------------
+   Íconos: SVG exportados de Figma usados como máscara para heredar color
+   -------------------------------------------------------------------------- */
+.ngeq-icon {
+  display: inline-block;
+  flex: none;
+  width: 18px;
+  height: 18px;
+  background-color: currentColor;
+  -webkit-mask: var(--ngeq-icon) center / contain no-repeat;
+          mask: var(--ngeq-icon) center / contain no-repeat;
+}
+.ngeq-icon--16 { width: 16px; height: 16px; }
+.ngeq-icon--17 { width: 17px; height: 17px; }
+.ngeq-icon--20 { width: 20px; height: 20px; }
+.ngeq-icon--21 { width: 21px; height: 21px; }
+.ngeq-icon--24 { width: 24px; height: 24px; }
+
+/* --------------------------------------------------------------------------
+   Cabecera
+   -------------------------------------------------------------------------- */
+.ngeq-header {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--ngeq-header-h);
+  padding: 12px var(--ngeq-gutter) 0;
+  background: var(--ngeq-c-surface);
+  border-bottom: 1px solid var(--ngeq-c-border);
+}
+.ngeq-header__back {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  height: 40px;
+  padding: 0 12px;
+  border-radius: var(--ngeq-r-md);
+  background: var(--ngeq-c-primary-soft);
+  color: var(--ngeq-c-primary);
+  font-weight: 600;
+  font-size: 14px;
+  transition: background-color .15s;
+}
+.ngeq-header__back:hover { background: #dbeafe; }
+.ngeq-brand { display: inline-flex; align-items: center; gap: 9px; color: var(--ngeq-c-ink); text-decoration: none; }
+.ngeq-brand__symbol {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--ngeq-r-sm);
+  background: var(--ngeq-c-primary);
+  color: #fff;
+}
+.ngeq-brand__name { font-size: 20px; font-weight: 800; line-height: normal; }
+
+/* --------------------------------------------------------------------------
+   Vista (contenedor de pantalla) + transición entre vistas
+   -------------------------------------------------------------------------- */
+.ngeq-view {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: var(--ngeq-gutter) var(--ngeq-gutter) 32px;
+}
+.ngeq-view--tight { gap: 12px; padding-bottom: 24px; }
+
+/* Tipografía de pantalla */
+.ngeq-eyebrow { font-size: 12px; line-height: 18px; font-weight: 600; color: var(--ngeq-c-primary); }
+.ngeq-eyebrow--teal { color: var(--ngeq-c-teal); }
+.ngeq-title { font-size: 28px; line-height: 1.2; font-weight: 800; }
+.ngeq-subtitle { font-size: 20px; line-height: 1.2; font-weight: 700; }
+.ngeq-lead { font-size: 14px; line-height: 21px; }
+.ngeq-lead--muted { color: var(--ngeq-c-muted); }
+.ngeq-footnote { font-size: 12px; line-height: 18px; color: var(--ngeq-c-muted); }
+
+/* --------------------------------------------------------------------------
+   Tarjeta de lectura
+   -------------------------------------------------------------------------- */
+.ngeq-card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  padding: 20px;
+  background: var(--ngeq-c-surface);
+  border: 1px solid var(--ngeq-c-border);
+  border-radius: var(--ngeq-r-2xl);
+}
+.ngeq-card__title { font-size: 24px; line-height: 1.2; font-weight: 700; }
+.ngeq-card__title--sm { font-size: 20px; }
+.ngeq-card__head { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.ngeq-card__section { display: flex; flex-direction: column; gap: 6px; }
+.ngeq-card__label { font-weight: 700; color: var(--ngeq-c-primary); }
+.ngeq-card__num { font-weight: 700; color: var(--ngeq-c-violet); }
+.ngeq-card__link { text-decoration: underline; text-underline-offset: 2px; word-break: break-word; }
+.ngeq-card__link:hover { color: var(--ngeq-c-primary); }
+
+/* Nota del documento (violeta) */
+.ngeq-note {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 16px 14px;
+  border-radius: var(--ngeq-r-lg);
+  background: var(--ngeq-c-violet-soft);
+}
+.ngeq-note__title { font-size: 12px; line-height: 18px; font-weight: 600; color: var(--ngeq-c-violet); }
+
+/* --------------------------------------------------------------------------
+   Acordeón ("Apartado")
+   -------------------------------------------------------------------------- */
+.ngeq-accordion { width: 100%; background: var(--ngeq-c-surface); border: 1px solid var(--ngeq-c-border); border-radius: var(--ngeq-r-lg); overflow: hidden; }
+.ngeq-accordion__trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 48px;
+  padding: 0 16px;
+  font-weight: 700;
+  font-size: 14px;
+}
+.ngeq-accordion__trigger .ngeq-icon { color: var(--ngeq-c-primary); transition: transform .2s; }
+.ngeq-accordion__trigger[aria-expanded="true"] .ngeq-icon { transform: rotate(180deg); }
+.ngeq-accordion__panel { display: flex; flex-direction: column; gap: 12px; padding: 0 16px 16px; }
+
+/* --------------------------------------------------------------------------
+   Botones / enlaces de acción
+   -------------------------------------------------------------------------- */
+.ngeq-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 44px;
+  padding: 0 16px;
+  border-radius: var(--ngeq-r-lg);
+  font-weight: 600;
+  font-size: 14px;
+  transition: filter .15s, background-color .15s;
+}
+.ngeq-btn--primary { background: var(--ngeq-c-primary); color: #fff; }
+.ngeq-btn--primary:hover { filter: brightness(1.08); }
+.ngeq-btn--soft { background: var(--ngeq-c-primary-soft); color: var(--ngeq-c-primary); }
+.ngeq-btn--soft:hover { background: #dbeafe; }
+
+.ngeq-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 32px;
+  color: var(--ngeq-c-primary);
+  font-weight: 600;
+}
+.ngeq-link:hover { text-decoration: underline; }
+.ngeq-link--plain { font-weight: 400; line-height: 18px; }
+.ngeq-link--muted { color: var(--ngeq-c-muted); font-weight: 500; }
+.ngeq-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+
+/* --------------------------------------------------------------------------
+   Ficha de herramienta: rejilla de categorías (pestañas)
+   -------------------------------------------------------------------------- */
+.ngeq-tabs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; width: 100%; }
+.ngeq-tabs__tab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  height: 56px;
+  padding: 0 4px;
+  border: 1px solid var(--ngeq-c-border);
+  border-radius: var(--ngeq-r-xl);
+  background: var(--ngeq-c-surface);
+  color: var(--ngeq-c-ink);
+  font-weight: 600;
+  font-size: 14px;
+  line-height: normal;
+  text-align: center;
+  transition: background-color .15s, border-color .15s;
+}
+.ngeq-tabs__tab .ngeq-icon { color: var(--ngeq-c-primary); }
+.ngeq-tabs__tab:hover { border-color: #bfdbfe; }
+.ngeq-tabs__tab[aria-selected="true"] { background: var(--ngeq-c-primary); border-color: var(--ngeq-c-primary); color: #fff; }
+.ngeq-tabs__tab[aria-selected="true"] .ngeq-icon { color: #fff; }
+@media (max-width: 360px) { .ngeq-tabs__tab { font-size: 12px; } }
+
+/* Tarjeta de video (YouTube) */
+.ngeq-video {
+  display: grid;
+  grid-template-columns: 66px 1fr;
+  column-gap: 16px;
+  align-items: center;
+  padding: 18px;
+  border-radius: var(--ngeq-r-lg);
+  background: var(--ngeq-c-primary-soft);
+  text-decoration: none;
+}
+.ngeq-video__thumb { position: relative; width: 66px; height: 48px; }
+.ngeq-video__thumb img { position: absolute; display: block; }
+.ngeq-video__title { font-weight: 700; color: var(--ngeq-c-ink); line-height: normal; }
+.ngeq-video__meta { font-size: 12px; line-height: 1.4; color: var(--ngeq-c-ink-2); }
+.ngeq-video__meta--sm { font-size: 11px; color: var(--ngeq-c-muted); }
+.ngeq-video__hint { grid-column: 1 / -1; margin-top: 8px; font-size: 11px; line-height: normal; color: var(--ngeq-c-primary); }
+.ngeq-video:hover .ngeq-video__title { color: var(--ngeq-c-primary); }
+
+/* Ilustración de inicio */
+.ngeq-figure { width: 100%; margin: 24px 0 0; }
+.ngeq-figure img { display: block; width: 100%; height: auto; }
+
+
+/* Bibliografía */
+.ngeq-biblio__meta { display: flex; justify-content: space-between; font-size: 12px; line-height: 18px; font-weight: 600; color: var(--ngeq-c-muted); }
+.ngeq-biblio__meta strong { color: var(--ngeq-c-primary); font-weight: 600; }
+.ngeq-biblio__list { display: flex; flex-direction: column; gap: 16px; }
+.ngeq-pager { display: flex; gap: 8px; }
+.ngeq-pager__dot { width: 8px; height: 8px; border-radius: 50%; background: var(--ngeq-c-border); }
+.ngeq-pager__dot--on { background: var(--ngeq-c-primary); }
+
+/* Estado vacío (videos) */
+.ngeq-card .ngeq-icon--violet { color: var(--ngeq-c-violet); }
+
+/* --------------------------------------------------------------------------
+   Casillas de datos de la ficha (número grande + leyenda)
+   -------------------------------------------------------------------------- */
+.ngeq-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; width: 100%; margin: 0; }
+.ngeq-stats__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  padding: 12px 6px;
+  border: 1px solid var(--ngeq-c-border);
+  border-radius: var(--ngeq-r-lg);
+  background: var(--ngeq-c-surface);
+  text-align: center;
+}
+.ngeq-stats__value { margin: 0; font-size: 22px; line-height: 1.1; font-weight: 800; color: var(--ngeq-c-ink); }
+.ngeq-stats__label { margin: 0; font-size: 11px; line-height: 14px; color: var(--ngeq-c-muted); }
+
+/* Chips (instrumentos y materiales) */
+.ngeq-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.ngeq-chip {
+  padding: 4px 12px;
+  border-radius: 999px;
+  border: 1px solid #bfdbfe;
+  background: var(--ngeq-c-primary-soft);
+  color: var(--ngeq-c-primary);
+  font-size: 13px;
+  font-weight: 700;
+}
+button.ngeq-chip:hover { background: #dbeafe; }
+.ngeq-chip--static { font-weight: 600; color: var(--ngeq-c-ink-2); }
+
+/* Buscador */
+.ngeq-search { display: flex; flex-direction: column; gap: 6px; width: 100%; }
+.ngeq-search__label { font-size: 13px; font-weight: 700; }
+.ngeq-search__box { position: relative; }
+.ngeq-search__box .ngeq-icon { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--ngeq-c-muted); pointer-events: none; }
+.ngeq-search__input {
+  width: 100%;
+  height: 48px;
+  padding: 0 14px 0 42px;
+  border: 1px solid var(--ngeq-c-muted);
+  border-radius: var(--ngeq-r-lg);
+  background: var(--ngeq-c-surface);
+  font: inherit;
+  font-size: 14px;
+  color: var(--ngeq-c-ink);
+}
+.ngeq-search__input:focus { outline: none; border-color: var(--ngeq-c-primary); box-shadow: 0 0 0 3px rgba(37, 99, 235, .15); }
+
+/* Resultados: tarjetas de subárea y lista de coincidencias */
+.ngeq-results { display: flex; flex-direction: column; gap: 10px; width: 100%; }
+.ngeq-results__empty { font-size: 13px; color: var(--ngeq-c-muted); }
+.ngeq-area {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 14px 16px;
+  border: 1px solid var(--ngeq-c-border);
+  border-radius: var(--ngeq-r-xl);
+  background: var(--ngeq-c-surface);
+}
+.ngeq-area__title { font-size: 16px; font-weight: 700; }
+.ngeq-area__text { font-size: 13px; line-height: 19px; color: var(--ngeq-c-ink-2); }
+.ngeq-hits { display: flex; flex-direction: column; gap: 8px; }
+.ngeq-hit {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid var(--ngeq-c-border);
+  border-radius: var(--ngeq-r-lg);
+  background: var(--ngeq-c-surface);
+}
+.ngeq-hit:hover { border-color: #bfdbfe; }
+.ngeq-hit .ngeq-icon { color: var(--ngeq-c-primary); flex: none; }
+.ngeq-hit__name { display: block; font-weight: 700; }
+.ngeq-hit__meta { display: block; font-size: 12px; color: var(--ngeq-c-muted); }
+
+/* Glosario */
+.ngeq-glosario { display: flex; flex-direction: column; gap: 8px; margin: 0; }
+.ngeq-glosario__item { padding: 12px 16px; border: 1px solid var(--ngeq-c-border); border-radius: var(--ngeq-r-lg); background: var(--ngeq-c-surface); }
+.ngeq-glosario__item dt { font-weight: 700; }
+.ngeq-glosario__item dd { margin: 2px 0 0; font-size: 13px; line-height: 19px; color: var(--ngeq-c-ink-2); }
+
+/* Imagen dentro de una tarjeta (infografía) */
+.ngeq-figure--card { margin: 4px 0 0; display: flex; flex-direction: column; gap: 6px; }
+.ngeq-figure--card img { border: 1px solid var(--ngeq-c-border); border-radius: var(--ngeq-r-md); }
+
+/* Botón como enlace de descarga */
+a.ngeq-btn { text-decoration: none; }
+
