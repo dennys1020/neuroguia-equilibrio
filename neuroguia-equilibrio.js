@@ -63,20 +63,30 @@
   /** Fichas de herramientas. `titles` sobrescribe el título de la tarjeta por pestaña. */
   var TOOLS = {
     tis: {
-      stats: [['17', 'ítems'], ['10–15', 'minutos'], ['Libre', 'sin licencia ni costo']],
-      need: ['Camilla o silla sin apoyabrazos', 'Cronómetro', 'Pauta impresa'],
+      stats: [['17', 'ítems · 0 a 23 pts'], ['10–20', 'minutos'], ['Bajo', 'costo']],
+      need: ['Camilla o cama sin respaldo ni apoyabrazos', 'Hoja de puntuación', 'Cronómetro y lápiz'],
       keys: 'trunk impairment scale tronco sentado sedente coordinacion subescala acv accidente cerebrovascular neurorehabilitacion',
       short: 'TIS', name: 'Trunk Impairment Scale (TIS)', area: 'Control de tronco', subarea: 'tronco',
-      video: { url: 'https://www.youtube.com/watch?v=-9tiR-V2UTM', label: 'YouTube · Ver demostración ↗' },
+      // Videos de demostración
+      videos: [
+        { url: 'https://www.youtube.com/watch?v=x8x4PpaPTm0', label: 'Trunk Impairment Scale', sub: 'YouTube · Español' },
+        { url: 'https://www.youtube.com/watch?v=-9tiR-V2UTM', label: 'Trunk Impairment Scale · demostración', sub: 'YouTube' },
+        { url: 'https://www.youtube.com/results?search_query=Trunk+Impairment+Scale', label: 'Buscar más videos de la TIS ↗', sub: 'Búsqueda en YouTube' }
+      ],
+      // Imagen mostrada en "Cómo usar"
+      figure: { file: 'tis-ejercicios.jpg', width: 900, height: 1413,
+                alt: 'Fotografías de la TIS. Arriba, un niño sentado en una camilla en tres posiciones. En el centro y abajo, una persona sentada al borde de una camilla: posición inicial y cruce de una pierna sobre la otra (equilibrio estático); abajo, desplazamiento del tronco hacia un lado con elevación de la cadera (equilibrio dinámico) y, a la derecha, una ejecución incorrecta marcada con una cruz roja.',
+                caption: 'Ejemplos de la TIS: posición sentada y movimientos del tronco, equilibrio estático (ítem 2) y equilibrio dinámico (ítems 9 y 10).' },
+      titles: { validacion: 'Estandarización y países' },
       content: {
-        proposito: 'Valora equilibrio sentado, control selectivo y coordinación del tronco después de un accidente cerebrovascular (ACV).',
-        costo: 'Libre: no requiere licencia ni pago.',
-        poblacion: 'Estudiada inicialmente en personas con ACV. Para otras condiciones neurológicas, consultar la evidencia de esa población.',
-        descripcion: 'Consta de 17 ítems.',
-        equipo: 'Camilla o cama firme, sin respaldo ni apoyabrazos; altura que permita apoyar los pies. Cronómetro para ítems temporizados y hoja de puntuación. El evaluador permanece cerca para proteger al paciente.',
-        tiempo: 'Menos de 20 minutos; el estudio original registró entre 2 y 18. La preparación y los descansos pueden ampliar la sesión.',
+        proposito: 'Evalúa el equilibrio estático y dinámico en posición sedente, la coordinación de los movimientos del tronco y el control postural y la estabilidad del tronco.',
+        costo: 'Bajo: no requiere equipo especializado. El formulario o la publicación puede tener condiciones de acceso.',
+        poblacion: 'Principalmente personas adultas después de un ACV; también se ha estudiado en otras condiciones neurológicas. Requiere que la persona pueda sentarse y seguir instrucciones.',
+        descripcion: 'Consta de 17 ítems en tres áreas: equilibrio estático sentado, equilibrio dinámico sentado y coordinación del tronco. La posición inicial es sentado al borde de una camilla, sin apoyo de espalda ni brazos, con los pies apoyados y las rodillas aproximadamente a 90°. Escala clínica con puntuación total de 0 a 23; una puntuación mayor indica mejor control del tronco.',
+        equipo: 'Camilla o cama sin respaldo ni apoyabrazos, hoja de puntuación, cronómetro y lápiz. El evaluador permanece cerca para proteger al paciente.',
+        tiempo: 'Aproximadamente 10–20 minutos. La preparación y los descansos pueden ampliar la sesión.',
         formacion: 'Profesional de salud familiarizado con la pauta y la protección durante la sedestación. Leer el protocolo y practicar la puntuación; la base institucional no exige un curso certificado específico.',
-        validacion: 'Verheyden et al. (2004): 28 pacientes con ACV. Fiabilidad total test-retest ICC 0.96 y entre observadores 0.99. Estos datos corresponden a esa muestra; no demuestran validación en todos los países.',
+        validacion: 'Instrumento estandarizado desarrollado y estudiado originalmente en Europa. Se utiliza internacionalmente, pero no debe afirmarse validación específica para Ecuador sin un estudio local; la versión y el protocolo deben identificarse. Verheyden et al. (2004): 28 pacientes con ACV. Fiabilidad total test-retest ICC 0.96 y entre observadores 0.99. Estos datos corresponden a esa muestra; no demuestran validación en todos los países.',
         referencias: 'Verheyden G et al. (2004). The Trunk Impairment Scale: a new tool to measure motor impairment of the trunk after stroke. Clinical Rehabilitation, 18(3), 326–334. DOI: 10.1191/0269215504cr733oa. Guía de materiales y aplicación: RehabMeasures, Shirley Ryan AbilityLab.'
       }
     },
