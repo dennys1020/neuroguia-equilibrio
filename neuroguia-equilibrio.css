@@ -506,3 +506,6 @@ a.ngeq-btn { text-decoration: none; }
 button.ngeq-vlist__item { width: 100%; background: var(--ngeq-c-surface); }
 .ngeq-vlist__item--on,
 .ngeq-vlist__item--on:hover { border-color: var(--ngeq-c-primary); background: var(--ngeq-c-primary-soft); }
+
+/* Lista con viñetas dentro de una tarjeta (p. ej., puntos de corte en Evidencia) */
+.ngeq-list { display: flex; flex-direction: column; gap: 4px; margin: 0; padding-left: 20px; list-style: disc; color: var(--ngeq-c-ink-2); }

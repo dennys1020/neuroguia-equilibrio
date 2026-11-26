@@ -34,8 +34,19 @@
     { key: 'equipo',      label: 'Materiales',   icon: 'briefcase-medical' },
     { key: 'formacion',   label: 'Quién aplica', icon: 'graduation-cap' },
     { key: 'validacion',  label: 'Evidencia',    icon: 'shield-check' },
-    { key: 'referencias', label: 'Fuentes',      icon: 'book-open' }
+    { key: 'referencias', label: 'Fuentes',      icon: 'book-open' },
+    // Opcional: solo aparece si la herramienta tiene `sections.calculo`
+    { key: 'calculo',     label: 'Cómo calcular', icon: 'book-open', optional: true }
   ];
+
+  /** Pestañas visibles de una herramienta (`hideTabs` oculta algunas; las opcionales requieren contenido). */
+  function tabsDe(t) {
+    var ocultas = (t && t.hideTabs) || [];
+    return TABS.filter(function (x) {
+      if (ocultas.indexOf(x.key) >= 0) return false;
+      return !x.optional || !!(t && t.sections && t.sections[x.key]);
+    });
+  }
 
   var COSTO_PENDIENTE = 'Información de costos pendiente de confirmar.';
 
@@ -121,24 +132,90 @@
       }
     },
     tinetti: {
-      stats: [['16', 'ítems'], ['10–15', 'minutos'], ['—', 'costo por confirmar']],
-      need: ['Silla firme sin apoyabrazos', 'Cronómetro', 'Cinta métrica', 'Pasillo de 8 m'],
-      keys: 'marcha caidas caminar sedente bipedo dinamico gait pauta',
-      short: 'Tinetti', name: 'Escala de Tinetti', area: 'Equilibrio estático y dinámico', subarea: 'dinamico',
+      // Contenido del documento del grupo (COIL): sección 2.1 (págs. 5–7) y sección 3.1 «Equilibrio dinámico»
+      stats: [['16', 'ítems (9 + 7)'], ['10–15', 'minutos'], ['28', 'puntos máximo']],
+      need: ['Silla firme (≈45–50 cm)', 'Cronómetro', 'Pasillo de 5–8 m', 'Hoja de registro y lápiz', 'Ayudas técnicas habituales'],
+      keys: 'tinetti poma performance oriented mobility assessment marcha caidas caminar sedente bipedo bipedestacion dinamico gait pauta riesgo adulto mayor cribado fragilidad sarcopenia',
+      short: 'Tinetti', name: 'Escala de Tinetti (POMA)', area: 'Equilibrio dinámico', subarea: 'dinamico',
       pdf: { file: 'pauta-tinetti.pdf', label: 'Descargar pauta (PDF)' }, // pauta imprimible
-      video: { url: 'https://www.youtube.com/watch?v=HU34ofZqrIA', label: 'YouTube · Ver demostración ↗', sub: 'Physiotutors · Inglés',
-               card: { title: 'Demostración de Tinetti', meta: 'YouTube · Physiotutors', small: 'Video en inglés · Enlace externo' } },
-      titles: { validacion: 'Evidencia ECU–CHI–MÉX' },
+      videos: [
+        { url: 'https://www.youtube.com/watch?v=_ou-b54pXbQ', label: 'Escala de Tinetti · Video 1', sub: 'YouTube' },
+        { url: 'https://www.youtube.com/watch?v=CAE_1MAIH0c', label: 'Escala de Tinetti · Video 2', sub: 'YouTube' },
+        { url: 'https://www.youtube.com/results?search_query=Escala+de+Tinetti+fisioterapia', label: 'Buscar más videos de Tinetti ↗', sub: 'Búsqueda en YouTube' }
+      ],
+      // Las dos subescalas
+      steps: {
+        label: 'Subescalas (se evalúan por separado y suman el total)',
+        items: [
+          { title: 'Equilibrio · 9 ítems · hasta 16 pts', text: 'Evalúa la estabilidad en sedestación, bipedestación, transferencias, giros y reacciones posturales ante perturbaciones. En algunas versiones tiene 13 ítems.' },
+          { title: 'Marcha · 7 ítems · hasta 12 pts', text: 'Evalúa el inicio de la marcha, longitud y altura del paso, simetría, continuidad, trayectoria, tronco y base de sustentación. En algunas versiones tiene 9 ítems.' }
+        ]
+      },
+      scoring: {
+        label: 'Puntos de corte (total sobre 28)',
+        items: [
+          ['≤ 18', 'Riesgo alto de caídas.'],
+          ['19–23', 'Riesgo moderado de caídas.'],
+          ['≥ 24', 'Riesgo bajo de caídas.']
+        ]
+      },
+      hideDuration: true, // la duración ya aparece en los datos de arriba (10–15 minutos)
+      titles: { validacion: 'Estandarización y países' },
+      hideTabs: ['referencias'], // sin pestaña «Fuentes»
+      videosFirst: true,         // videos al abrir «Cómo usar»
+      sections: {
+        proposito: [
+          { label: 'Equilibrio y calidad de la marcha',
+            text: 'Evalúa el equilibrio estático y dinámico, así como la calidad de la marcha, en personas mayores. Su objetivo principal es identificar el riesgo de caídas y servir como herramienta de cribado y seguimiento funcional.' },
+          { label: 'Población diana',
+            text: 'Adultos mayores (generalmente ≥ 65 años), tanto sanos como frágiles, y personas con condiciones neurológicas (como Parkinson o secuelas de ictus).' },
+          { label: 'Diagnóstico / evaluación',
+            text: 'No es una prueba diagnóstica de una enfermedad específica, sino una herramienta de cribado funcional. Identifica el riesgo de caídas y permite monitorizar cambios en la movilidad a lo largo del tiempo o tras una intervención.' }
+        ],
+        descripcion: [
+          { label: 'Formato',
+            list: ['Equilibrio: permanecer sentado, levantarse, mantenerse de pie (con y sin ojos cerrados), girar 360°, recibir un empujón suave en el esternón y sentarse nuevamente.',
+                   'Marcha: caminar a paso habitual por un pasillo, observando inicio, paso, simetría, etc.',
+                   'Puntuación: se registra cada ítem en una hoja de registro; la suma de ambas subescalas da la puntuación total.'] }
+        ],
+        // Pestaña «Cómo calcular»: guías que explican el test parte por parte
+        calculo: [
+          { label: 'Test explicado parte por parte',
+            links: [
+              { url: 'https://fisiomayores.com/fisioterapia/test-de-tinetti-valoracion-del-equilibrio-y-la-marcha/', label: 'Fisiomayores · Test de Tinetti: valoración del equilibrio y la marcha' },
+              { url: 'https://www.sspa.juntadeandalucia.es/servicioandaluzdesalud/sites/default/files/sincfiles/wsas-media-mediafile_sasdocumento/2019/PT4_EquilyMarcha.pdf', label: 'Servicio Andaluz de Salud · Escala de equilibrio y marcha (PDF)' }
+            ] }
+        ],
+        equipo: [
+          { label: 'Detalle del equipo',
+            list: ['Silla: rígida, sin brazos o con brazos, de altura estándar (aproximadamente 45–50 cm).',
+                   'Espacio: pasillo o espacio despejado de al menos 5 a 8 metros de longitud.',
+                   'Hoja de registro y bolígrafo para anotar las puntuaciones.',
+                   'Ayudas técnicas: las que el paciente use habitualmente (bastón, andador).'] }
+        ],
+        validacion: [
+          { label: 'Estandarización y validez por países',
+            text: 'Es una pauta estandarizada a nivel internacional. Ha sido traducida y validada en múltiples idiomas y contextos culturales, incluyendo versiones en coreano, turco, persa y gujarati, las cuales han demostrado propiedades psicométricas adecuadas (validez, fiabilidad y sensibilidad) para su uso clínico y de investigación.' },
+          { label: 'Estándares médicos',
+            text: 'La puntuación total máxima varía según la versión (comúnmente 28 puntos, con 16 para equilibrio y 12 para marcha). Los puntos de corte más aceptados para interpretar el riesgo de caídas son:',
+            list: ['Riesgo bajo: 25 a 28 puntos (o ≥ 24 en algunos protocolos).',
+                   'Riesgo moderado: 19 a 24 puntos (o 19–23).',
+                   'Riesgo alto: < 19 puntos (o ≤ 18).'] },
+          { label: 'Nota',
+            text: 'Una puntuación baja en una subescala específica (por ejemplo, solo en equilibrio) también debe ser motivo de atención clínica, incluso si la puntuación total es alta, ya que puede indicar un déficit específico que incremente el riesgo de caídas.' }
+        ]
+      },
       content: {
-        proposito: 'Observa equilibrio y marcha durante tareas cotidianas: sentarse, levantarse, mantenerse de pie, girar y caminar. Permite registrar en qué tareas aparecen dificultades.',
-        costo: COSTO_PENDIENTE,
-        poblacion: 'Personas mayores.',
-        descripcion: 'Pauta del curso: 16 ítems, con equilibrio hasta 16 puntos y marcha hasta 12; total hasta 28. Descarga la pauta en PDF para imprimirla y registrar cada respuesta y las observaciones. El análisis posterior corresponde al equipo evaluador.',
-        equipo: 'Silla firme sin ruedas y sin apoyabrazos para la pauta aportada. Cronómetro, cinta métrica, hoja de registro y pasillo seguro de unos 8 m según el documento del curso. Mantener la misma versión al comparar resultados.',
-        tiempo: 'Aproximadamente 10–15 minutos para equilibrio y marcha. Puede aumentar con explicaciones, descansos y medidas de protección.',
-        formacion: 'Profesional familiarizado con la pauta. El documento del curso propone dos personas: una indica las tareas y otra protege al paciente. Conocer los criterios de cada respuesta antes de puntuar.',
-        validacion: 'Tinetti (1986) desarrolló la evaluación. Rodríguez-Guevara y Lugo-Agudelo (2012) estudiaron una versión para población colombiana. Esto no confirma por sí solo validación en Ecuador, Chile y México.',
-        referencias: 'Tinetti ME. (1986). Performance-oriented assessment of mobility problems in elderly patients. J Am Geriatr Soc, 34(2), 119–126. DOI: 10.1111/j.1532-5415.1986.tb05480.x. Rodríguez-Guevara C, Lugo-Agudelo LH. (2012). Validez y confiabilidad de la Escala de Tinetti para población colombiana. Rev Colomb Reumatol, 19(4), 218–233.'
+        proposito: 'Identificar alteraciones del equilibrio y la marcha, y estimar el riesgo de caídas.',
+        costo: 'Sin costo de licencia según la American Thoracic Society; se requiere material básico. La escala es de acceso libre y gratuito: no requiere la compra de software ni de equipos desechables, y el formulario está disponible en línea en diversas fuentes académicas y clínicas.',
+        poblacion: 'Principalmente adultos mayores, especialmente personas con fragilidad, sarcopenia, antecedentes o riesgo de caídas, y alteraciones de movilidad.',
+        descripcion: '', // sin párrafo inicial: «Cómo usar» abre con los videos
+        equipo: 'Silla firme sin apoyabrazos, cronómetro, pasillo recto de aproximadamente 5 m, hoja de registro y lápiz.',
+        tiempo: 'Aproximadamente 10–15 minutos.',
+        formacion: 'Profesional familiarizado con la pauta. Conocer los criterios de cada respuesta antes de puntuar.',
+        validacion: 'Instrumento estandarizado desarrollado por Mary Tinetti en Estados Unidos. Se encuentra disponible en varios idiomas y se utiliza internacionalmente; verificar la versión lingüística y sus propiedades en la población objetivo.',
+        referencias: '',
+        calculo: ''
       }
     },
     unipodal: {
@@ -221,6 +298,8 @@
   var GLOSARIO = [
     { t: 'Ataxia', d: 'Falta de coordinación de los movimientos. Puede ser sensitiva (por falta de propiocepción), vestibular o cerebelosa.' },
     { t: 'Bípedo', d: 'De pie, con el apoyo de ambos pies.' },
+    { t: 'Bipedestación', d: 'Posición de pie. La Escala de Tinetti la evalúa al levantarse, en los primeros 5 segundos y de forma mantenida.' },
+    { t: 'Cribado', d: 'Evaluación breve para detectar a quienes necesitan una valoración más completa. La Escala de Tinetti se usa como cribado del riesgo de caídas.' },
     { t: 'Decúbito supino', d: 'Acostado boca arriba. Es la posición inicial del TCT.' },
     { t: 'EFAM', d: 'Examen Funcional del Adulto Mayor (Chile). De él viene el criterio de la estación unipodal: 5 segundos o más es normal.' },
     { t: 'Hemiparesia', d: 'Debilidad de un lado del cuerpo, frecuente después de un ACV.' },
@@ -230,9 +309,11 @@
     { t: 'Neurorehabilitación', d: 'Rehabilitación de personas con lesiones o enfermedades del sistema nervioso, como un accidente cerebrovascular.' },
     { t: 'Pauta', d: 'Hoja con las instrucciones y la forma de puntuar un instrumento.' },
     { t: 'Plano transversal', d: 'Giro del cuerpo alrededor de su eje vertical, como al rotar los hombros o la pelvis.' },
+    { t: 'POMA', d: 'Performance Oriented Mobility Assessment: nombre en inglés de la Escala de Tinetti (evaluación de la movilidad orientada al desempeño).' },
     { t: 'Propiocepción', d: 'Información que el cuerpo recibe sobre la posición de sus articulaciones; viaja por las columnas dorsales y las fibras periféricas gruesas.' },
     { t: 'Punto de corte', d: 'Puntaje que separa un resultado normal de uno alterado. En la TIS, menos de 14 a 16 puntos.' },
     { t: 'Romberg positivo', d: 'La persona está estable con ojos abiertos, pero se vuelve inestable o cae al cerrarlos. Orienta a ataxia sensitiva o vestibular.' },
+    { t: 'Sarcopenia', d: 'Pérdida de masa y fuerza muscular asociada a la edad; aumenta el riesgo de caídas.' },
     { t: 'Sedente', d: 'Sentado.' },
     { t: 'Sedestación', d: 'Posición de sentado. El TCT evalúa el equilibrio en sedestación al borde de la cama.' },
     { t: 'Subescala', d: 'Parte de una escala que evalúa un aspecto y tiene su propio puntaje. La suma de las subescalas da el total.' },
@@ -240,7 +321,7 @@
     { t: 'Vestibular', d: 'Relativo al oído interno, que informa sobre la posición y el movimiento de la cabeza.' }
   ];
 
-  var TAB_TITLES = { referencias: 'Fuentes' }; // títulos por defecto distintos de la etiqueta
+  var TAB_TITLES = { referencias: 'Fuentes', calculo: 'Cómo calcular la puntuación' }; // títulos por defecto distintos de la etiqueta
 
   var HORAK = 'El equilibrio permite mantener la estabilidad al estar quietos y al movernos. Integra la visión, el sistema vestibular y la sensibilidad corporal para orientar el cuerpo y responder a cambios de apoyo. Fuente: Horak (2006).';
 
@@ -374,7 +455,7 @@
     if (views.indexOf(s.view) < 0) s.view = 'home';
     if (s.view === 'tool') {
       if (!TOOLS[s.tool]) s.tool = 'tis';
-      if (!TABS.some(function (t) { return t.key === s.tab; })) s.tab = 'descripcion';
+      if (!tabsDe(TOOLS[s.tool]).some(function (t) { return t.key === s.tab; })) s.tab = 'descripcion';
     }
     if (s.view === 'biblio') s.page = Math.min(Math.max(s.page || 1, 1), BIBLIO_PAGES);
     return s;
@@ -471,8 +552,6 @@
       '<p class="ngeq-lead">' + esc(HORAK) + '</p>' +
       this.searchBox('tools', 'Buscar instrumento', 'Nombre, sigla o qué evalúa', this.ui.q) +
       '<div class="ngeq-results" data-ngeq-results="tools" aria-live="polite">' + this.toolResults() + '</div>' +
-      '<figure class="ngeq-figure"><img src="' + this.o.assetsPath + 'balance-illustration.svg" width="350" height="190" ' +
-        'alt="Esquema de una persona de pie: la visión, el sistema vestibular y la sensibilidad corporal se integran para dar estabilidad y movimiento."></figure>' +
       '<button type="button" class="ngeq-accordion ngeq-accordion__trigger" data-ngeq-action="go" data-view="about">' +
         '<span>Información del área</span>' + this.icon('chevron-right') + '</button>' +
       '<button type="button" class="ngeq-accordion ngeq-accordion__trigger" data-ngeq-action="go" data-view="glosario">' +
@@ -620,7 +699,7 @@
         return '<div class="ngeq-score__item"><dt class="ngeq-score__value">' + esc(x[0]) + '<span class="ngeq-sr"> puntos</span></dt>' +
           '<dd class="ngeq-score__text">' + esc(x[1]) + '</dd></div>';
       }).join('') + '</dl>' +
-      '<p class="ngeq-score__total">' + esc(sc.total) + '</p>' +
+      (sc.total ? '<p class="ngeq-score__total">' + esc(sc.total) + '</p>' : '') +
       (sc.note ? '<p class="ngeq-footnote">' + esc(sc.note) + '</p>' : '') + '</div>';
   };
 
@@ -671,10 +750,11 @@
   /** Ficha de herramienta: datos breves arriba + pestañas con el contenido extenso */
   P.viewTool = function () {
     var self = this, s = this.state, t = TOOLS[s.tool];
-    var tab = TABS.filter(function (x) { return x.key === s.tab; })[0];
+    var visibles = tabsDe(t);
+    var tab = visibles.filter(function (x) { return x.key === s.tab; })[0];
     var panelId = 'ngeq-panel';
 
-    var tabs = TABS.map(function (x) {
+    var tabs = visibles.map(function (x) {
       var sel = x.key === s.tab;
       return '<button type="button" role="tab" class="ngeq-tabs__tab" id="ngeq-tab-' + x.key + '" data-ngeq-action="tab" data-tab="' + x.key + '"' +
         ' aria-selected="' + sel + '" aria-controls="' + panelId + '" tabindex="' + (sel ? 0 : -1) + '">' +
@@ -683,7 +763,18 @@
 
     // Contenido de la tarjeta de lectura
     var title = (t.titles && t.titles[s.tab]) || TAB_TITLES[s.tab] || tab.label;
-    var body = '<p>' + linkify(t.content[s.tab]) + '</p>';
+    var body = t.content[s.tab] ? '<p>' + linkify(t.content[s.tab]) + '</p>' : '';
+    if (t.sections && t.sections[s.tab]) {
+      body += t.sections[s.tab].map(function (x) {
+        return '<div class="ngeq-card__section"><p class="ngeq-card__label">' + esc(x.label) + '</p>' +
+          (x.text ? '<p>' + esc(x.text) + '</p>' : '') +
+          (x.list ? '<ul class="ngeq-list">' + x.list.map(function (li) { return '<li>' + esc(li) + '</li>'; }).join('') + '</ul>' : '') +
+          (x.links ? '<ul class="ngeq-list">' + x.links.map(function (l) {
+            return '<li><a class="ngeq-card__link" href="' + esc(l.url) + '" target="_blank" rel="noopener noreferrer">' + esc(l.label) + ' ↗' +
+              '<span class="ngeq-sr"> (se abre en una pestaña nueva)</span></a></li>';
+          }).join('') + '</ul>' : '') + '</div>';
+      }).join('');
+    }
     if (s.tab === 'proposito') {
       body += '<div class="ngeq-card__section"><p class="ngeq-card__label">Para quién</p><p>' + esc(t.content.poblacion) + '</p></div>';
     }
@@ -694,7 +785,8 @@
     if (s.tab === 'descripcion' && t.steps) body += this.steps(t.steps);
     if (s.tab === 'descripcion' && t.scoring) body += this.scoring(t.scoring);
     if (s.tab === 'descripcion') {
-      body += '<div class="ngeq-card__section"><p class="ngeq-card__label">Duración</p><p>' + esc(t.content.tiempo) + '</p>' +
+      body += '<div class="ngeq-card__section">' +
+        (t.hideDuration ? '' : '<p class="ngeq-card__label">Duración</p><p>' + esc(t.content.tiempo) + '</p>') +
         '<p class="ngeq-footnote">Costo: ' + esc(t.content.costo) + '</p></div>';
     }
     var more = t.more && t.more[s.tab];
@@ -709,7 +801,11 @@
           '<img src="' + this.o.assetsPath + t.figure.file + '" width="' + t.figure.width + '" height="' + t.figure.height + '" alt="' + esc(t.figure.alt) + '" loading="lazy"></a>' +
           '<figcaption class="ngeq-footnote">' + esc(t.figure.caption) + ' Toca la imagen para ampliarla.</figcaption></figure>';
       }
-      if (s.tab === 'descripcion' && t.videos) body += this.videoList(t.videos);
+      if (s.tab === 'descripcion' && t.videos) {
+        // `videosFirst`: los videos van al inicio de «Cómo usar», antes del texto
+        if (t.videosFirst) body = this.videoList(t.videos) + body;
+        else body += this.videoList(t.videos);
+      }
       if (s.tab === 'descripcion' && t.video) {
         if (ytId(t.video.url)) {
           body += '<div class="ngeq-card__section"><p class="ngeq-card__label">Video de demostración</p>' +
@@ -821,10 +917,11 @@
     var tab = e.target.closest && e.target.closest('[role="tab"]');
     if (tab && ['ArrowRight', 'ArrowLeft', 'ArrowDown', 'ArrowUp', 'Home', 'End'].indexOf(e.key) >= 0) {
       e.preventDefault();
-      var i = TABS.map(function (x) { return x.key; }).indexOf(tab.dataset.tab), n = TABS.length;
+      var lista = tabsDe(TOOLS[this.state.tool]);
+      var i = lista.map(function (x) { return x.key; }).indexOf(tab.dataset.tab), n = lista.length;
       var j = { ArrowRight: i + 1, ArrowLeft: i - 1, ArrowDown: i + 3, ArrowUp: i - 3, Home: 0, End: n - 1 }[e.key];
       j = (j + n) % n;
-      this.handleClick({ target: this.root.querySelector('#ngeq-tab-' + TABS[j].key) });
+      this.handleClick({ target: this.root.querySelector('#ngeq-tab-' + lista[j].key) });
     }
   };
 
