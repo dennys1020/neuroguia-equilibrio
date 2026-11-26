@@ -66,25 +66,58 @@
         tiempo: 'Menos de 20 minutos; el estudio original registró entre 2 y 18. La preparación y los descansos pueden ampliar la sesión.',
         formacion: 'Profesional de salud familiarizado con la pauta y la protección durante la sedestación. Leer el protocolo y practicar la puntuación; la base institucional no exige un curso certificado específico.',
         validacion: 'Verheyden et al. (2004): 28 pacientes con ACV. Fiabilidad total test-retest ICC 0.96 y entre observadores 0.99. Estos datos corresponden a esa muestra; no demuestran validación en todos los países.',
-        referencias: 'Fuentes transcritas del documento proporcionado. Verheyden G et al. (2004). The Trunk Impairment Scale: a new tool to measure motor impairment of the trunk after stroke. Clinical Rehabilitation, 18(3), 326–334. DOI: 10.1191/0269215504cr733oa. Guía de materiales y aplicación: RehabMeasures, Shirley Ryan AbilityLab.'
+        referencias: 'Verheyden G et al. (2004). The Trunk Impairment Scale: a new tool to measure motor impairment of the trunk after stroke. Clinical Rehabilitation, 18(3), 326–334. DOI: 10.1191/0269215504cr733oa. Guía de materiales y aplicación: RehabMeasures, Shirley Ryan AbilityLab.'
       }
     },
     tct: {
-      stats: [['4', 'ítems'], ['5–10', 'minutos'], ['—', 'costo por confirmar']],
-      need: ['Camilla o cama estable', 'Cronómetro', 'Hoja de registro'],
-      keys: 'trunk control test tronco giro supino sentado incorporacion transferencias',
+      stats: [['4', 'tareas · 0 a 100 pts'], ['< 5', 'minutos'], ['Bajo', 'costo']],
+      need: ['Cama o camilla', 'Hoja de registro y lápiz', 'Cronómetro (opcional)'],
+      keys: 'trunk control test tronco giro girar supino decubito sentado sedestacion incorporarse incorporacion equilibrio sentado acv hemiparesia hemiplejia transferencias cama',
       short: 'TCT', name: 'Trunk Control Test (TCT)', area: 'Control de tronco', subarea: 'tronco',
-      video: { url: 'https://www.youtube.com/watch?v=KsfnHkm99eY', label: 'YouTube · Ver demostración ↗', sub: 'Physiotutors · Inglés' },
+      // Videos de demostración
+      videos: [
+        { url: 'https://www.youtube.com/watch?v=qBNrBeoU094', label: 'Test de control de tronco (Neuro)', sub: 'YouTube · Español' },
+        { url: 'https://www.youtube.com/watch?v=KsfnHkm99eY', label: 'Trunk Control Test · Clinimetrics', sub: 'YouTube · Physiotutors · Inglés' },
+        { url: 'https://www.youtube.com/watch?v=dUlkjy8XGVM', label: 'Test de Control de Tronco (TCT)', sub: 'YouTube · Español' },
+        { url: 'https://www.youtube.com/results?search_query=Trunk+Control+Test+physiotherapy', label: 'Buscar más videos del TCT ↗', sub: 'Búsqueda en YouTube' }
+      ],
+      // Las 4 tareas evaluadas, con su imagen de referencia
+      steps: {
+        label: 'Tareas evaluadas',
+        items: [
+          { title: 'Girar hacia el lado afectado', text: 'Desde decúbito supino, rodar sobre la cama hacia el lado débil.',
+            img: 'tct-giro.jpg', alt: 'Persona acostada de lado sobre una camilla después de girar desde boca arriba.' },
+          { title: 'Girar hacia el lado no afectado', text: 'Desde decúbito supino, rodar hacia el lado fuerte.',
+            img: 'tct-giro.jpg', flip: true, alt: 'Persona acostada de lado sobre una camilla; imagen reflejada para indicar el giro hacia el otro lado.' },
+          { title: 'Incorporarse a sentado', text: 'Pasar de decúbito supino a sentado sobre la cama o camilla.',
+            img: 'tct-supino.jpg', alt: 'Persona boca arriba sobre una camilla, con las rodillas flexionadas, en la posición inicial para incorporarse.' },
+          { title: 'Equilibrio sentado', text: 'Sentado al borde de la cama, con los pies sin apoyo, mantener la postura.',
+            img: 'tct-sentado.jpg', alt: 'Persona sentada al borde de una camilla, apoyando una mano sobre la superficie.' }
+        ],
+        caption: 'Imágenes tomadas del video «Trunk Control Test» de Physiotutors.'
+      },
+      // Escala de cada tarea: 0, 12 o 25 puntos (Collin y Wade, 1990)
+      scoring: {
+        label: 'Puntuación por tarea',
+        items: [
+          ['0', 'No puede realizar la tarea sin ayuda.'],
+          ['12', 'La realiza con apoyo de los brazos o de forma anormal.'],
+          ['25', 'La realiza normalmente.']
+        ],
+        total: 'Total de 0 a 100 (4 × 25). Una puntuación mayor indica mejor control del tronco.',
+        note: 'Criterios de cada nivel según Collin y Wade (1990).'
+      },
+      titles: { validacion: 'Estandarización y países' },
       content: {
-        proposito: 'Observa cuatro movimientos básicos del tronco: girar hacia ambos lados, incorporarse desde acostado y mantener el equilibrio sentado.',
-        costo: COSTO_PENDIENTE,
-        poblacion: 'Principalmente adultos con secuelas de ACV. La evidencia depende del diagnóstico y del momento de evaluación.',
-        descripcion: 'Cuatro ítems: giro al lado débil, giro al lado fuerte, equilibrio sentado e incorporación. Cada ítem admite 0, 12 o 25 puntos; total 0–100. Registrar la forma de ejecución y la ayuda utilizada.',
-        equipo: 'Camilla o cama estable para giros e incorporación. Cronómetro para observar 30 segundos de equilibrio sentado; hoja de registro y bolígrafo. No requiere aparatos electrónicos de medición.',
-        tiempo: 'Menos de 5 minutos de aplicación, según RehabMeasures. Añadir tiempo para explicar, colocar al paciente y permitir descansos.',
-        formacion: 'Profesional que haya leído el artículo o manual, conozca los criterios 0/12/25 y pueda proteger al paciente durante los cambios de posición.',
-        validacion: 'Collin y Wade (1990): estudio piloto de fiabilidad tras ACV. Es una medida breve; su evidencia y sensibilidad dependen de la población. Un total alto puede ocultar diferencias sutiles de control del tronco.',
-        referencias: 'Fuentes transcritas del documento proporcionado. Collin C, Wade DT. (1990). Assessing motor impairment after stroke: a pilot reliability study. J Neurol Neurosurg Psychiatry, 53(7), 576–579. DOI: 10.1136/jnnp.53.7.576. Guía de aplicación: RehabMeasures, Shirley Ryan AbilityLab. https://pubmed.ncbi.nlm.nih.gov/2391521/'
+        proposito: 'Evalúa el control motor básico del tronco y la capacidad para realizar movimientos funcionales en cama y en sedestación.',
+        costo: 'Bajo: requiere cama o camilla y materiales básicos.',
+        poblacion: 'Principalmente adultos con ACV y hemiparesia o hemiplejia. También puede utilizarse para evaluar alteraciones neurológicas del control del tronco.',
+        descripcion: 'Prueba clínica de cuatro ítems. La persona comienza en decúbito supino sobre la cama o camilla y realiza cada tarea; el evaluador la puntúa según su capacidad de ejecución.',
+        equipo: 'Cama o camilla, hoja de registro y lápiz. Cronómetro si se requiere controlar el tiempo de sedestación (30 segundos en la versión original). No requiere aparatos electrónicos de medición.',
+        tiempo: 'Generalmente menos de 5 minutos. Añadir tiempo para explicar, colocar al paciente y permitir descansos.',
+        formacion: 'Profesional que haya leído el artículo o manual, conozca los criterios 0/12/25 y pueda proteger al paciente durante los giros y al incorporarse.',
+        validacion: 'Instrumento estandarizado utilizado en rehabilitación neurológica y en estudios internacionales. Collin y Wade (1990) publicaron un estudio piloto de fiabilidad en personas tras un ACV.',
+        referencias: 'Collin C, Wade DT. (1990). Assessing motor impairment after stroke: a pilot reliability study. J Neurol Neurosurg Psychiatry, 53(7), 576–579. DOI: 10.1136/jnnp.53.7.576. https://pubmed.ncbi.nlm.nih.gov/2391521/'
       }
     },
     tinetti: {
@@ -105,7 +138,7 @@
         tiempo: 'Aproximadamente 10–15 minutos para equilibrio y marcha. Puede aumentar con explicaciones, descansos y medidas de protección.',
         formacion: 'Profesional familiarizado con la pauta. El documento del curso propone dos personas: una indica las tareas y otra protege al paciente. Conocer los criterios de cada respuesta antes de puntuar.',
         validacion: 'Tinetti (1986) desarrolló la evaluación. Rodríguez-Guevara y Lugo-Agudelo (2012) estudiaron una versión para población colombiana. Esto no confirma por sí solo validación en Ecuador, Chile y México.',
-        referencias: 'Fuentes transcritas del documento proporcionado. Tinetti ME. (1986). Performance-oriented assessment of mobility problems in elderly patients. J Am Geriatr Soc, 34(2), 119–126. DOI: 10.1111/j.1532-5415.1986.tb05480.x. Rodríguez-Guevara C, Lugo-Agudelo LH. (2012). Validez y confiabilidad de la Escala de Tinetti para población colombiana. Rev Colomb Reumatol, 19(4), 218–233.'
+        referencias: 'Tinetti ME. (1986). Performance-oriented assessment of mobility problems in elderly patients. J Am Geriatr Soc, 34(2), 119–126. DOI: 10.1111/j.1532-5415.1986.tb05480.x. Rodríguez-Guevara C, Lugo-Agudelo LH. (2012). Validez y confiabilidad de la Escala de Tinetti para población colombiana. Rev Colomb Reumatol, 19(4), 218–233.'
       }
     },
     unipodal: {
@@ -131,7 +164,7 @@
         tiempo: 'Unos 5 minutos como organización de la sesión del curso. El tiempo máximo de cada intento depende del protocolo seleccionado y debe registrarse.',
         formacion: 'Profesional capaz de explicar y demostrar la posición, controlar el cronómetro y proteger ante pérdida de equilibrio. Documentar cualquier adaptación.',
         validacion: 'Springer et al. (2007): 549 adultos sanos, con desempeño dependiente de la edad. Fiabilidad entre evaluadores alta para el mejor de tres intentos. No usar 5 segundos como diagnóstico universal.',
-        referencias: 'Fuentes transcritas del documento proporcionado. Springer BA, Marin R, Cyhan T, Roberts H, Gill NW. (2007). Normative values for the unipedal stance test with eyes open and closed. J Geriatr Phys Ther, 30(1), 8–15. DOI: 10.1519/00139143-200704000-00003. Guía: RehabMeasures, Single leg stance. https://pubmed.ncbi.nlm.nih.gov/19839175/'
+        referencias: 'Springer BA, Marin R, Cyhan T, Roberts H, Gill NW. (2007). Normative values for the unipedal stance test with eyes open and closed. J Geriatr Phys Ther, 30(1), 8–15. DOI: 10.1519/00139143-200704000-00003. Guía: RehabMeasures, Single leg stance. https://pubmed.ncbi.nlm.nih.gov/19839175/'
       }
     },
     romberg: {
@@ -179,7 +212,7 @@
         tiempo: 'El documento del curso reserva 3–4 minutos para preparar y aplicar. El resultado del recorrido se expresa en segundos; no confundir ambos tiempos.',
         formacion: 'Profesional familiarizado con la pauta, el inicio y fin del cronometraje y la protección durante el giro. Mantener instrucciones y condiciones al repetir.',
         validacion: 'Podsiadlo y Richardson (1991) estudiaron fiabilidad y relación con otras medidas de movilidad en 60 personas mayores. Los puntos de corte dependen de población y protocolo; el análisis lo realiza el evaluador.',
-        referencias: 'Fuentes transcritas del documento proporcionado. Podsiadlo D, Richardson S. (1991). The timed Up & Go: a test of basic functional mobility for frail elderly persons. J Am Geriatr Soc, 39(2), 142–148. DOI: 10.1111/j.1532-5415.1991.tb01616.x. Procedimiento y materiales: CDC STEADI, Assessment Timed Up & Go (2017). https://pubmed.ncbi.nlm.nih.gov/1991946/'
+        referencias: 'Podsiadlo D, Richardson S. (1991). The timed Up & Go: a test of basic functional mobility for frail elderly persons. J Am Geriatr Soc, 39(2), 142–148. DOI: 10.1111/j.1532-5415.1991.tb01616.x. Procedimiento y materiales: CDC STEADI, Assessment Timed Up & Go (2017). https://pubmed.ncbi.nlm.nih.gov/1991946/'
       }
     }
   };
@@ -190,6 +223,8 @@
     { t: 'Bípedo', d: 'De pie, con el apoyo de ambos pies.' },
     { t: 'Decúbito supino', d: 'Acostado boca arriba. Es la posición inicial del TCT.' },
     { t: 'EFAM', d: 'Examen Funcional del Adulto Mayor (Chile). De él viene el criterio de la estación unipodal: 5 segundos o más es normal.' },
+    { t: 'Hemiparesia', d: 'Debilidad de un lado del cuerpo, frecuente después de un ACV.' },
+    { t: 'Hemiplejia', d: 'Parálisis de un lado del cuerpo. Es más grave que la hemiparesia.' },
     { t: 'Indemne', d: 'Sin daño; que se conserva completo. «Control de tronco indemne» es el puntaje máximo de la TIS.' },
     { t: 'Ítem', d: 'Cada tarea de una escala que recibe un puntaje. La TIS tiene 17 ítems agrupados en 3 subescalas.' },
     { t: 'Neurorehabilitación', d: 'Rehabilitación de personas con lesiones o enfermedades del sistema nervioso, como un accidente cerebrovascular.' },
@@ -199,6 +234,7 @@
     { t: 'Punto de corte', d: 'Puntaje que separa un resultado normal de uno alterado. En la TIS, menos de 14 a 16 puntos.' },
     { t: 'Romberg positivo', d: 'La persona está estable con ojos abiertos, pero se vuelve inestable o cae al cerrarlos. Orienta a ataxia sensitiva o vestibular.' },
     { t: 'Sedente', d: 'Sentado.' },
+    { t: 'Sedestación', d: 'Posición de sentado. El TCT evalúa el equilibrio en sedestación al borde de la cama.' },
     { t: 'Subescala', d: 'Parte de una escala que evalúa un aspecto y tiene su propio puntaje. La suma de las subescalas da el total.' },
     { t: 'Transferencias', d: 'Cambios de posición o de superficie, como pasar de la cama a la silla.' },
     { t: 'Vestibular', d: 'Relativo al oído interno, que informa sobre la posición y el movimiento de la cabeza.' }
@@ -269,6 +305,13 @@
     if (!ps.length) ps = palabras(q);
     return ps.every(function (x) { return tokens.some(function (tk) { return parecida(x, tk); }); });
   }
+
+  /** ID de un video de YouTube (watch?v=, youtu.be/ o /embed/); null si no es un video. */
+  function ytId(url) {
+    var m = /(?:[?&]v=|youtu\.be\/|\/embed\/)([\w-]{11})/.exec(url || '');
+    return m ? m[1] : null;
+  }
+  function sinFlecha(t) { return String(t || '').replace(/\s*↗\s*$/, ''); }
 
   var uid = 0;
   function nextId(p) { uid += 1; return 'ngeq-' + p + '-' + uid; }
@@ -474,7 +517,6 @@
     return '<main class="ngeq-view">' +
       '<p class="ngeq-eyebrow">DOCUMENTO DEL GRUPO 3</p>' +
       '<h1 class="ngeq-title">Bibliografía</h1>' +
-      '<p class="ngeq-lead ngeq-lead--muted">Fuentes transcritas del documento proporcionado. El PDF no asigna una fuente individual a cada instrumento.</p>' +
       '<div class="ngeq-biblio__meta"><span>Bibliografía y referencias</span><strong aria-label="Página ' + page + ' de ' + BIBLIO_PAGES + '">' + page + ' / ' + BIBLIO_PAGES + '</strong></div>' +
       '<ol class="ngeq-biblio__list" start="' + (start + 1) + '">' + items + '</ol>' +
       (last
@@ -557,6 +599,75 @@
   };
 
 
+  /** Tareas de una prueba, numeradas y con imagen de referencia */
+  P.steps = function (st) {
+    var self = this;
+    return '<div class="ngeq-card__section"><p class="ngeq-card__label">' + esc(st.label) + '</p>' +
+      '<ol class="ngeq-steps">' + st.items.map(function (x, i) {
+        return '<li class="ngeq-steps__item">' +
+          (x.img ? '<img class="ngeq-steps__img' + (x.flip ? ' ngeq-steps__img--flip' : '') + '" src="' + self.o.assetsPath + x.img + '" width="96" height="72" alt="' + esc(x.alt) + '" loading="lazy">' : '') +
+          '<span class="ngeq-steps__body"><span class="ngeq-steps__num" aria-hidden="true">' + (i + 1) + '</span>' +
+          '<span class="ngeq-steps__title">' + esc(x.title) + '</span>' +
+          '<span class="ngeq-steps__text">' + esc(x.text) + '</span></span></li>';
+      }).join('') + '</ol>' +
+      (st.caption ? '<p class="ngeq-footnote">' + esc(st.caption) + '</p>' : '') + '</div>';
+  };
+
+  /** Niveles de puntuación (valor + significado) y total */
+  P.scoring = function (sc) {
+    return '<div class="ngeq-card__section"><p class="ngeq-card__label">' + esc(sc.label) + '</p>' +
+      '<dl class="ngeq-score">' + sc.items.map(function (x) {
+        return '<div class="ngeq-score__item"><dt class="ngeq-score__value">' + esc(x[0]) + '<span class="ngeq-sr"> puntos</span></dt>' +
+          '<dd class="ngeq-score__text">' + esc(x[1]) + '</dd></div>';
+      }).join('') + '</dl>' +
+      '<p class="ngeq-score__total">' + esc(sc.total) + '</p>' +
+      (sc.note ? '<p class="ngeq-footnote">' + esc(sc.note) + '</p>' : '') + '</div>';
+  };
+
+  /**
+   * Reproductor de YouTube incrustado. Primero muestra la miniatura con un botón
+   * de reproducir; al pulsarlo se carga el iframe (youtube-nocookie, sin cookies
+   * hasta reproducir). Debajo queda el enlace para abrirlo en YouTube.
+   */
+  P.player = function (v, title) {
+    var id = ytId(v.url);
+    return '<div class="ngeq-player" data-ngeq-player>' + this.playerPoster(id, title) + '</div>' +
+      '<p class="ngeq-player__caption"><span data-ngeq-player-title>' + esc(title) + '</span>' +
+      '<a class="ngeq-card__link" data-ngeq-player-link href="' + esc(v.url) + '" target="_blank" rel="noopener noreferrer">Abrir en YouTube ↗' +
+      '<span class="ngeq-sr"> (se abre en una pestaña nueva)</span></a></p>';
+  };
+  P.playerPoster = function (id, title) {
+    return '<button type="button" class="ngeq-player__poster" data-ngeq-action="play" data-id="' + id + '" data-title="' + esc(title) + '"' +
+      ' aria-label="Reproducir video: ' + esc(title) + '">' +
+      '<img class="ngeq-player__thumb" src="https://i.ytimg.com/vi/' + id + '/hqdefault.jpg" alt="" loading="lazy" onerror="this.remove()">' +
+      '<span class="ngeq-player__btn" aria-hidden="true"></span></button>';
+  };
+  P.playerFrame = function (id, title) {
+    return '<iframe class="ngeq-player__frame" src="https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0&playsinline=1"' +
+      ' title="' + esc(title) + '" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"' +
+      ' referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>';
+  };
+
+  /** Varios videos: un reproductor arriba y la lista para elegir cuál ver. */
+  P.videoList = function (list) {
+    var self = this;
+    var first = list.filter(function (v) { return ytId(v.url); })[0];
+    return '<div class="ngeq-card__section"><p class="ngeq-card__label">Videos de demostración</p>' +
+      (first ? this.player(first, sinFlecha(first.label)) : '') +
+      '<ul class="ngeq-vlist">' + list.map(function (v) {
+        var id = ytId(v.url), on = v === first;
+        var inner = self.icon('video', 18) + '<span><span class="ngeq-vlist__title">' + esc(v.label) + '</span>' +
+          (v.sub ? '<span class="ngeq-vlist__meta">' + esc(v.sub) + '</span>' : '') + '</span>';
+        if (id) {
+          return '<li><button type="button" class="ngeq-vlist__item' + (on ? ' ngeq-vlist__item--on' : '') + '" data-ngeq-action="pick"' +
+            ' data-id="' + id + '" data-url="' + esc(v.url) + '" data-title="' + esc(sinFlecha(v.label)) + '" aria-pressed="' + on + '">' +
+            inner + '</button></li>';
+        }
+        return '<li><a class="ngeq-vlist__item" href="' + esc(v.url) + '" target="_blank" rel="noopener noreferrer">' + inner +
+          '<span class="ngeq-sr"> (se abre en una pestaña nueva)</span></a></li>';
+      }).join('') + '</ul></div>';
+  };
+
   /** Ficha de herramienta: datos breves arriba + pestañas con el contenido extenso */
   P.viewTool = function () {
     var self = this, s = this.state, t = TOOLS[s.tool];
@@ -580,6 +691,8 @@
       body = '<div class="ngeq-card__section"><p class="ngeq-card__label">Qué se necesita</p><div class="ngeq-chips">' +
         t.need.map(function (n) { return '<span class="ngeq-chip ngeq-chip--static">' + esc(n) + '</span>'; }).join('') + '</div></div>' + body;
     }
+    if (s.tab === 'descripcion' && t.steps) body += this.steps(t.steps);
+    if (s.tab === 'descripcion' && t.scoring) body += this.scoring(t.scoring);
     if (s.tab === 'descripcion') {
       body += '<div class="ngeq-card__section"><p class="ngeq-card__label">Duración</p><p>' + esc(t.content.tiempo) + '</p>' +
         '<p class="ngeq-footnote">Costo: ' + esc(t.content.costo) + '</p></div>';
@@ -596,17 +709,14 @@
           '<img src="' + this.o.assetsPath + t.figure.file + '" width="' + t.figure.width + '" height="' + t.figure.height + '" alt="' + esc(t.figure.alt) + '" loading="lazy"></a>' +
           '<figcaption class="ngeq-footnote">' + esc(t.figure.caption) + ' Toca la imagen para ampliarla.</figcaption></figure>';
       }
+      if (s.tab === 'descripcion' && t.videos) body += this.videoList(t.videos);
       if (s.tab === 'descripcion' && t.video) {
-        body += '<a class="ngeq-card__link" href="' + t.video.url + '" target="_blank" rel="noopener noreferrer">' +
-          esc(t.video.label) + (t.video.sub ? '<br>' + esc(t.video.sub) : '') + '<span class="ngeq-sr"> (se abre en una pestaña nueva)</span></a>';
-        if (t.video.card) {
-          body += '<a class="ngeq-video" href="' + t.video.url + '" target="_blank" rel="noopener noreferrer">' +
-            '<span class="ngeq-video__thumb" aria-hidden="true"><img src="' + this.o.assetsPath + 'yt-bg.svg" width="66" height="48" alt="" style="inset:0">' +
-            '<img src="' + this.o.assetsPath + 'yt-play.svg" width="20" height="24" alt="" style="left:26px;top:12px"></span>' +
-            '<span><span class="ngeq-video__title">' + esc(t.video.card.title) + '</span><br>' +
-            '<span class="ngeq-video__meta">' + esc(t.video.card.meta) + '</span><br>' +
-            '<span class="ngeq-video__meta ngeq-video__meta--sm">' + esc(t.video.card.small) + '</span></span>' +
-            '<span class="ngeq-video__hint">Abre el video desde el enlace de esta ficha.</span></a>';
+        if (ytId(t.video.url)) {
+          body += '<div class="ngeq-card__section"><p class="ngeq-card__label">Video de demostración</p>' +
+            this.player(t.video, t.video.sub ? 'YouTube · ' + t.video.sub : 'YouTube') + '</div>';
+        } else {
+          body += '<a class="ngeq-card__link" href="' + t.video.url + '" target="_blank" rel="noopener noreferrer">' +
+            esc(t.video.label) + (t.video.sub ? '<br>' + esc(t.video.sub) : '') + '<span class="ngeq-sr"> (se abre en una pestaña nueva)</span></a>';
         }
         if (more) body += '<button type="button" class="ngeq-link ngeq-link--plain" data-ngeq-action="more" data-more="1">Continuar lectura →</button>';
       }
@@ -660,6 +770,27 @@
         this.navigate(Object.assign({}, this.state, { tab: d.tab }), { replace: true, keepScroll: true, keepFocus: true });
         var t = this.root.querySelector('#ngeq-tab-' + d.tab); if (t) t.focus();
         break;
+      case 'play': {
+        var box = el.closest('[data-ngeq-player]');
+        if (box) box.innerHTML = this.playerFrame(d.id, d.title);
+        break;
+      }
+      case 'pick': {
+        var sec = el.closest('.ngeq-card__section');
+        var player = sec && sec.querySelector('[data-ngeq-player]');
+        if (!player) break;
+        player.innerHTML = this.playerFrame(d.id, d.title);
+        sec.querySelector('[data-ngeq-player-title]').textContent = d.title;
+        sec.querySelector('[data-ngeq-player-link]').href = d.url;
+        Array.prototype.forEach.call(sec.querySelectorAll('[data-ngeq-action="pick"]'), function (b) {
+          var on = b === el;
+          b.classList.toggle('ngeq-vlist__item--on', on);
+          b.setAttribute('aria-pressed', String(on));
+        });
+        player.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+        this.live.textContent = 'Reproduciendo: ' + d.title;
+        break;
+      }
       case 'more':
         this.ui.moreOpen = d.more === '1';
         this.render();
@@ -721,5 +852,5 @@
   }
 
   global.NeuroGuia = global.NeuroGuia || {};
-  global.NeuroGuia.Equilibrio = { mount: mount, version: '1.1.0' };
+  global.NeuroGuia.Equilibrio = { mount: mount, version: '1.2.0' };
 })(window);

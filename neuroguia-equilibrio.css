@@ -389,3 +389,120 @@ button.ngeq-chip:hover { background: #dbeafe; }
 /* Botón como enlace de descarga */
 a.ngeq-btn { text-decoration: none; }
 
+/* --------------------------------------------------------------------------
+   TCT: tareas numeradas con imagen, niveles de puntuación y lista de videos
+   -------------------------------------------------------------------------- */
+.ngeq-steps { display: flex; flex-direction: column; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.ngeq-steps__item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px;
+  border: 1px solid var(--ngeq-c-border);
+  border-radius: var(--ngeq-r-lg);
+  background: var(--ngeq-c-bg);
+}
+.ngeq-steps__img {
+  flex: none;
+  width: 96px;
+  height: 72px;
+  object-fit: cover;
+  border-radius: var(--ngeq-r-sm);
+  background: var(--ngeq-c-border);
+}
+.ngeq-steps__img--flip { transform: scaleX(-1); }
+.ngeq-steps__body { display: grid; grid-template-columns: auto 1fr; column-gap: 8px; row-gap: 2px; align-items: center; }
+.ngeq-steps__num {
+  display: inline-grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  background: var(--ngeq-c-primary);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+}
+.ngeq-steps__title { font-size: 14px; line-height: 19px; font-weight: 700; color: var(--ngeq-c-ink); }
+.ngeq-steps__text { grid-column: 1 / -1; font-size: 13px; line-height: 18px; color: var(--ngeq-c-ink-2); }
+
+.ngeq-score { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 0; }
+.ngeq-score__item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 10px;
+  border: 1px solid #bfdbfe;
+  border-radius: var(--ngeq-r-lg);
+  background: var(--ngeq-c-primary-soft);
+}
+.ngeq-score__value { font-size: 22px; line-height: 1.1; font-weight: 800; color: var(--ngeq-c-primary); }
+.ngeq-score__text { margin: 0; font-size: 12px; line-height: 17px; color: var(--ngeq-c-ink-2); }
+.ngeq-score__total { font-size: 13px; line-height: 19px; font-weight: 600; color: var(--ngeq-c-ink); }
+@media (max-width: 360px) { .ngeq-score { grid-template-columns: 1fr; } }
+
+.ngeq-vlist { display: flex; flex-direction: column; gap: 6px; margin: 0; padding: 0; list-style: none; }
+.ngeq-vlist__item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border: 1px solid var(--ngeq-c-border);
+  border-radius: var(--ngeq-r-lg);
+  text-decoration: none;
+  color: inherit;
+}
+.ngeq-vlist__item:hover { border-color: #bfdbfe; background: var(--ngeq-c-primary-soft); }
+.ngeq-vlist__item .ngeq-icon { flex: none; color: var(--ngeq-c-violet); }
+.ngeq-vlist__title { display: block; font-size: 14px; font-weight: 700; }
+.ngeq-vlist__meta { display: block; font-size: 12px; color: var(--ngeq-c-muted); }
+
+/* --------------------------------------------------------------------------
+   Reproductor de YouTube incrustado (miniatura → iframe al pulsar)
+   -------------------------------------------------------------------------- */
+.ngeq-player {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: var(--ngeq-r-md);
+  background: #000;
+}
+.ngeq-player__poster { position: absolute; inset: 0; width: 100%; height: 100%; }
+.ngeq-player__thumb { display: block; width: 100%; height: 100%; object-fit: cover; }
+.ngeq-player__btn {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 68px;
+  height: 48px;
+  margin: -24px 0 0 -34px;
+  border-radius: 14px;
+  background: rgba(33, 33, 33, .85);
+  transition: background .15s;
+}
+.ngeq-player__btn::after {
+  content: "";
+  position: absolute;
+  left: 27px;
+  top: 14px;
+  border-style: solid;
+  border-width: 10px 0 10px 17px;
+  border-color: transparent transparent transparent #fff;
+}
+.ngeq-player__poster:hover .ngeq-player__btn,
+.ngeq-player__poster:focus-visible .ngeq-player__btn { background: #ff0000; }
+.ngeq-player__poster:focus-visible { outline: 3px solid var(--ngeq-c-primary); outline-offset: -3px; }
+.ngeq-player__frame { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.ngeq-player__caption {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 4px 12px;
+  font-size: 12px;
+  line-height: 18px;
+  color: var(--ngeq-c-muted);
+}
+button.ngeq-vlist__item { width: 100%; background: var(--ngeq-c-surface); }
+.ngeq-vlist__item--on,
+.ngeq-vlist__item--on:hover { border-color: var(--ngeq-c-primary); background: var(--ngeq-c-primary-soft); }
