@@ -280,6 +280,35 @@
       short: 'Timed Up and Go', name: 'Timed Up and Go (TUG)', area: 'Equilibrio dinámico', subarea: 'dinamico',
       video: { url: 'https://www.youtube.com/watch?v=grrYoBucNPE', label: 'YouTube · Ver demostración ↗', sub: 'Physiotutors · Inglés' },
       titles: { validacion: 'Evidencia ECU–CHI–MÉX' },
+      // Sección 7 del documento COIL: 3.2 Timed Up and Go (TUG), Parte 1: Generalidades (págs. 13–14)
+      more: {
+        descripcion: {
+          title: 'Cómo usar · Parte 1: Generalidades',
+          items: [
+            { label: 'Propósito',
+              text: 'Evaluar la movilidad funcional y el equilibrio dinámico de la persona. Se utiliza principalmente para estimar el riesgo de caídas en adultos mayores y para evaluar la función física en poblaciones con deterioro funcional o tras un accidente cerebrovascular.' },
+            { label: 'Enlaces',
+              links: [ { url: 'https://youtu.be/brhnt4KM_Oc', label: 'Video citado por el documento COIL (distinto del video de demostración de esta ficha)' } ] },
+            { label: 'Pautas del recorrido',
+              text: 'La prueba consiste en medir el tiempo que tarda la persona en levantarse de una silla estándar, caminar una distancia de 3 metros, girar 180°, regresar a la silla y volver a sentarse. Se realiza a la velocidad habitual y cómoda del paciente, sin correr, permitiendo el uso de las ayudas técnicas que use normalmente (p. ej., bastón).' },
+            { label: 'Preparación',
+              text: 'El paciente se sienta en la silla con la espalda apoyada en el respaldo, los brazos sobre los apoyabrazos y los pies planos en el suelo.' },
+            { label: 'Práctica',
+              text: 'Se permite un intento de práctica sin cronometraje, para que el paciente se familiarice con la prueba antes de la medición real.' },
+            { label: 'Cronometraje',
+              text: 'El evaluador cronometra desde la señal «ya» —cuando el paciente inicia el movimiento— hasta que vuelve a sentarse y su espalda toca el respaldo de la silla. Generalmente se realizan dos intentos y se registra el tiempo de ambos.' },
+            { label: 'Equipo necesario',
+              list: ['Silla con respaldo y apoyabrazos, de altura estándar (aproximadamente 43–47,5 cm).',
+                     'Cronómetro, preferiblemente con precisión de centésimas de segundo.',
+                     'Cinta métrica, para medir la distancia de 3 metros.',
+                     'Cono o marcador, para señalar el punto de giro a los 3 metros.'] },
+            { label: 'Tiempo de administración',
+              text: 'La prueba en sí toma menos de 5 minutos. El tiempo total de administración, incluyendo la explicación y la práctica, suele ser de 5 a 10 minutos.' },
+            { label: 'Estandarización y validez por países',
+              text: 'Es una prueba estandarizada a nivel internacional, con protocolos ampliamente difundidos en la literatura médica y de rehabilitación. Los puntos de corte para predecir el riesgo de caídas pueden variar ligeramente entre estudios y poblaciones (por ejemplo, se han propuesto cortes de más de 10, 12, 13,5, 14 o 15 segundos); existen valores normativos específicos para algunas poblaciones, como la española.' }
+          ]
+        }
+      },
       content: {
         proposito: 'Cuantifica movilidad funcional: levantarse de una silla, caminar 3 m, girar, regresar y sentarse. Se registra el tiempo y se observa la calidad del movimiento.',
         costo: COSTO_PENDIENTE,
@@ -793,8 +822,20 @@
 
     if (more && this.ui.moreOpen) {
       title = more.title;
-      body = '<div class="ngeq-card__section"><p class="ngeq-card__label">' + esc(more.label) + '</p><p>' + esc(more.text) + '</p></div>' +
-        '<button type="button" class="ngeq-link ngeq-link--plain" data-ngeq-action="more" data-more="0">← Volver a Cómo usar</button>';
+      // `items`: varias subsecciones etiquetadas (texto, lista o enlaces), igual que `t.sections`.
+      // Sin `items`, se mantiene el formato original de una sola etiqueta + párrafo.
+      body = more.items
+        ? more.items.map(function (x) {
+            return '<div class="ngeq-card__section"><p class="ngeq-card__label">' + esc(x.label) + '</p>' +
+              (x.text ? '<p>' + linkify(x.text) + '</p>' : '') +
+              (x.list ? '<ul class="ngeq-list">' + x.list.map(function (li) { return '<li>' + esc(li) + '</li>'; }).join('') + '</ul>' : '') +
+              (x.links ? '<ul class="ngeq-list">' + x.links.map(function (l) {
+                return '<li><a class="ngeq-card__link" href="' + esc(l.url) + '" target="_blank" rel="noopener noreferrer">' + esc(l.label) + ' ↗' +
+                  '<span class="ngeq-sr"> (se abre en una pestaña nueva)</span></a></li>';
+              }).join('') + '</ul>' : '') + '</div>';
+          }).join('')
+        : '<div class="ngeq-card__section"><p class="ngeq-card__label">' + esc(more.label) + '</p><p>' + esc(more.text) + '</p></div>';
+      body += '<button type="button" class="ngeq-link ngeq-link--plain" data-ngeq-action="more" data-more="0">← Volver a Cómo usar</button>';
     } else {
       if (s.tab === 'descripcion' && t.figure) {
         body += '<figure class="ngeq-figure ngeq-figure--card"><a href="' + this.o.assetsPath + t.figure.file + '" target="_blank" rel="noopener">' +
