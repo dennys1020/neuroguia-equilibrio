@@ -256,7 +256,7 @@
       }
     },
     romberg: {
-      stats: [['2', 'condiciones: ojos abiertos y cerrados'], ['≈30', 'segundos con ojos cerrados'], ['—', 'costo por confirmar']],
+      stats: [['2', 'condiciones: ojos abiertos y cerrados'], ['1–2', 'minutos'], ['Sin', 'costo asociado']],
       need: ['Superficie firme y plana', 'Cronómetro', 'Hoja de observaciones'],
       keys: 'romberg ojos cerrados propiocepcion vestibular ataxia sensitiva cerebelosa pies juntos estatico',
       short: 'Prueba de Romberg', name: 'Prueba de Romberg', area: 'Equilibrio estático', subarea: 'estatico',
@@ -265,23 +265,58 @@
       figure: { file: 'romberg-infografia.png', width: 506, height: 605,
                 alt: 'Infografía de la prueba de Romberg: sistemas sensoriales del equilibrio, árbol de decisión con ojos abiertos y cerrados, causas de Romberg positivo y comparación entre resultado normal, ataxia cerebelosa y ataxia sensitiva.',
                 caption: 'Infografía «Romberg Test: Assessment of Postural Stability» (en inglés).' },
+      titles: { validacion: 'Estandarización y países' },
+      // Persona 4 · Documento COIL: Prueba de Romberg (págs. 7–10)
       more: {
         descripcion: {
-          title: 'Cómo usar · Interpretación',
-          label: 'Tipo de ataxia según el resultado',
-          text: 'Romberg positivo: orienta a ataxia sensitiva (propioceptiva) o vestibular, no cerebelosa. Romberg negativo con inestabilidad: en la ataxia cerebelosa la persona es inestable con ojos abiertos y cerrados. Causas frecuentes de Romberg positivo: déficit de vitamina B12 (degeneración combinada subaguda), tabes dorsal (neurosífilis), neuropatía periférica diabética, polineuropatía desmielinizante inflamatoria crónica (CIDP), neuropatías de fibra gruesa y trastornos vestibulares (p. ej., enfermedad de Ménière).'
+          title: 'Cómo usar · Prueba de Romberg',
+          items: [
+            { label: 'Propósito',
+              text: 'Valorar el equilibrio estático de pie y la integridad de la propiocepción (cordones posteriores de la médula y nervios periféricos) y del sistema vestibular. Al cerrar los ojos se retira la información visual; si la persona pierde el equilibrio solo en esa condición, el problema está en la propiocepción o en el sistema vestibular.' },
+            { label: 'Enlaces',
+              links: [
+                { url: 'https://www.ncbi.nlm.nih.gov/books/NBK563187/', label: 'StatPearls (NCBI) · Romberg Test' },
+                { url: 'https://www.sralab.org/rehabilitation-measures/romberg-test', label: 'Shirley Ryan AbilityLab · Romberg Test (RehabMeasures)' },
+                { url: 'https://my.clevelandclinic.org/health/diagnostics/22901-romberg-test', label: 'Cleveland Clinic · Romberg Test' }
+              ] },
+            { label: 'Procedimiento',
+              list: ['Preparación: explicar la prueba y retirar el calzado (descalzo o con calcetines). La persona se coloca de pie sobre una superficie firme, con los pies juntos y los brazos a los lados del cuerpo o cruzados sobre el pecho.',
+                     'Ojos abiertos: mantener la posición durante 30 segundos mientras el evaluador observa el balanceo y la estabilidad.',
+                     'Ojos cerrados: pedir que cierre los ojos y mantenga la misma posición de 30 a 60 segundos, sin apoyo.',
+                     'Seguridad: el evaluador permanece muy cerca, con los brazos listos para sujetar a la persona, sin tocarla mientras no sea necesario.',
+                     'Registro: anotar el tiempo que mantuvo cada condición, si hubo balanceo, si dio un paso o si necesitó ayuda.'] },
+            { label: 'Resultado',
+              list: ['Negativo (normal): se mantiene estable con ojos abiertos y con ojos cerrados durante el tiempo indicado. Un balanceo leve que la persona corrige no se considera positivo.',
+                     'Positivo: está estable con ojos abiertos, pero al cerrarlos se balancea de forma marcada, da un paso o cae. Orienta a ataxia sensitiva (propioceptiva) o a un trastorno vestibular.',
+                     'Inestable con ojos abiertos y cerrados: no es un Romberg positivo; sugiere un origen cerebeloso u otra alteración motora.'] },
+            { label: 'Causas frecuentes de Romberg positivo',
+              text: 'Déficit de vitamina B12 (degeneración combinada subaguda), tabes dorsal (neurosífilis), neuropatía periférica diabética, polineuropatía desmielinizante inflamatoria crónica (CIDP), neuropatías de fibra gruesa y trastornos vestibulares (p. ej., enfermedad de Ménière).' },
+            { label: 'Equipo necesario',
+              list: ['Superficie firme, plana y sin obstáculos.',
+                     'Cronómetro.',
+                     'Hoja de observaciones y lápiz.',
+                     'Opcional en variantes: cojín de espuma (Romberg sensibilizado sobre espuma); no forma parte de la prueba clásica.'] },
+            { label: 'Tiempo de administración',
+              text: 'Entre 1 y 2 minutos: unos 30 segundos con ojos abiertos y de 30 a 60 segundos con ojos cerrados, más la explicación previa.' },
+            { label: 'Estandarización y validez por países',
+              text: 'Es una prueba clínica de uso internacional dentro de la exploración neurológica, pero no tiene un protocolo único: varían la duración (30 o 60 s), la posición de los brazos y el uso de calzado. No hay validaciones formales por país ni puntos de corte nacionales. Bohannon et al. (1984) reportaron que 184 adultos sanos mantuvieron la posición 30 segundos con ojos abiertos y cerrados.' },
+            { label: 'Costo',
+              text: 'Sin costo: no requiere licencia, software ni material desechable. Solo se necesita un cronómetro y un espacio seguro.' },
+            { label: 'Población',
+              text: 'Adultos jóvenes y mayores que puedan mantenerse de pie sin ayuda. Se usa en personas con sospecha de neuropatía periférica, mielopatía, trastornos vestibulares, mareo o inestabilidad, y en el cribado de riesgo de caídas.' }
+          ]
         }
       },
       content: {
         proposito: 'Valora la estabilidad postural de pie. El equilibrio integra tres sistemas: visión, propiocepción (columnas dorsales y fibras periféricas gruesas) y función vestibular; se necesitan al menos dos intactos para mantener la postura. Al cerrar los ojos se retira la visión y se pone a prueba la propiocepción y el sistema vestibular.',
-        costo: COSTO_PENDIENTE,
-        poblacion: 'Personas que pueden mantenerse de pie con seguridad durante una exploración neurológica.',
-        descripcion: 'Paciente de pie, pies juntos y brazos a los lados. Observar primero con ojos abiertos (los tres sistemas contribuyen) y después con ojos cerrados, siempre con protección. Negativo (normal): se mantiene estable con ojos cerrados unos 30 segundos sin apoyo. Positivo: estable con ojos abiertos, pero se vuelve inestable o cae al cerrarlos.',
+        costo: 'Sin costo: no requiere licencia ni equipo especializado, solo un cronómetro.',
+        poblacion: 'Adultos jóvenes y mayores que puedan mantenerse de pie sin ayuda, sobre todo con sospecha de neuropatía periférica, mielopatía o trastorno vestibular.',
+        descripcion: 'Paciente de pie, pies juntos y brazos a los lados o cruzados. Observar 30 segundos con ojos abiertos y después de 30 a 60 segundos con ojos cerrados, siempre con protección. Negativo (normal): se mantiene estable con ojos cerrados. Positivo: estable con ojos abiertos, pero se vuelve inestable o cae al cerrarlos.',
         equipo: 'Superficie firme, plana y despejada. Cronómetro y hoja de observaciones. Profesional muy próximo para evitar caídas. La espuma corresponde a una variante, no al Romberg clásico.',
-        tiempo: 'Breve: unos 30 segundos con ojos cerrados, más la observación con ojos abiertos.',
+        tiempo: 'Entre 1 y 2 minutos: 30 segundos con ojos abiertos y de 30 a 60 segundos con ojos cerrados.',
         formacion: 'Profesional formado en exploración neurológica y protección de pie. Debe distinguir la prueba clásica de sus variantes y describir la respuesta observada.',
-        validacion: 'Prueba clínica cualitativa: el resultado es negativo (normal) o positivo, sin puntaje total. Un resultado positivo orienta a ataxia sensitiva o vestibular; requiere contexto clínico y otras pruebas para identificar la causa.',
-        referencias: 'Romberg Test. StatPearls, NCBI Bookshelf: equipo, personal, preparación y técnica. Infografía «Romberg Test: Assessment of Postural Stability» aportada por el equipo. https://www.ncbi.nlm.nih.gov/books/NBK563187/'
+        validacion: 'Prueba clínica cualitativa: el resultado es negativo (normal) o positivo, sin puntaje total. Se usa internacionalmente, pero el protocolo varía entre fuentes (30 o 60 segundos, posición de brazos) y no hay validaciones por país. Un resultado positivo orienta a ataxia sensitiva o vestibular; requiere contexto clínico y otras pruebas para identificar la causa.',
+        referencias: 'Romberg Test. StatPearls, NCBI Bookshelf: equipo, personal, preparación y técnica. https://www.ncbi.nlm.nih.gov/books/NBK563187/ · Bohannon RW et al. (1984). Decrease in timed balance test scores with aging. Phys Ther, 64(7), 1067–1070. · RehabMeasures: Romberg Test, Shirley Ryan AbilityLab. Infografía «Romberg Test: Assessment of Postural Stability» aportada por el equipo.'
       }
     },
     tug: {
