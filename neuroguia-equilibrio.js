@@ -229,28 +229,44 @@
       }
     },
     unipodal: {
-      stats: [['1', 'prueba · 3 intentos por pierna'], ['≈5', 'minutos'], ['—', 'costo por confirmar']],
-      need: ['Cronómetro', 'Espacio seguro, plano y sin obstáculos'],
-      keys: 'una pierna apoyo pie unipodal estatico caidas efam single leg stance',
-      short: 'Estación Unipodal', name: 'Estación Unipodal', area: 'Equilibrio estático', subarea: 'estatico',
-      video: { url: 'https://www.youtube.com/watch?v=A9pi7_JRgwQ', label: 'Ver evaluación en YouTube ↗', sub: 'Physiotutors · Inglés' },
-      // "Continuar lectura" en Cómo usar abre una segunda página de la tarjeta
-      more: {
-        descripcion: {
-          title: 'Cómo usar · Continuación',
-          label: 'Interpretación del documento',
-          text: 'Un tiempo reducido de apoyo unipodal, particularmente inferior a 5 segundos, se asocia con mayor riesgo de caídas. El PDF no precisa la población ni el protocolo de referencia para este umbral.'
-        }
+      // Contenido del documento del grupo (COIL): Estación unipodal / SLS (págs. 10–11)
+      stats: [['1', 'prueba · registro en s'], ['1–5', 'minutos'], ['Bajo', 'gratuito o muy bajo']],
+      need: ['Cronómetro', 'Superficie firme', 'Hoja de registro y lápiz'],
+      keys: 'una pierna apoyo pie monopodal unipodal estatico caidas efam empam single leg stance sls parkinson acv',
+      short: 'Estación Unipodal', name: 'Estación unipodal (Single Leg Stance Test, SLS)', area: 'Equilibrio estático', subarea: 'estatico',
+      videos: [
+        { url: 'https://www.youtube.com/watch?v=A9pi7_JRgwQ', label: 'Single Leg Stance Test', sub: 'YouTube · Physiotutors · Inglés' },
+        { url: 'https://www.youtube.com/watch?v=AQ1GMvRX0NY', label: 'Valoración neuromuscular · Single Leg Stance Test', sub: 'YouTube · SéMOVIMIENTO · Español' },
+        { url: 'https://www.youtube.com/results?search_query=Single+Leg+Stance+Test+physiotherapy', label: 'Buscar más videos del SLS ↗', sub: 'Búsqueda en YouTube' }
+      ],
+      figures: [
+        { file: 'unipodal-postura.png', width: 422, height: 308,
+          alt: 'Persona realizando la prueba de estación unipodal de perfil y de frente, con las manos en la cintura y una pierna elevada sin apoyar el pie ni tocar la pierna de apoyo.',
+          caption: 'Postura de referencia en la estación unipodal (vista lateral y frontal).' },
+        { file: 'unipodal-alineacion.jpg', width: 427, height: 387,
+          alt: 'Comparación de alineación en apoyo monopodal: a la izquierda, caída pélvica marcada con una línea roja inclinada; a la derecha, alineación vertical del tronco y pelvis nivelada con una línea roja recta.',
+          caption: 'Alineación postural durante el apoyo monopodal: inclinación pélvica frente a postura alineada.' }
+      ],
+      titles: { validacion: 'Estandarización y países' },
+      sections: {
+        descripcion: [
+          { label: 'Formato',
+            text: 'Prueba funcional cuantitativa. El resultado se registra en segundos para cada pierna. El número de intentos, posición de brazos, uso de calzado y tiempo máximo deben mantenerse constantes.' }
+        ],
+        validacion: [
+          { label: 'Evidencia de referencia',
+            text: 'Springer et al. (2007): 549 adultos sanos, con desempeño dependiente de la edad. Fiabilidad entre evaluadores alta para el mejor de tres intentos. Un tiempo reducido, particularmente inferior a 5 segundos, se asocia con mayor riesgo de caídas en ciertos protocolos (p. ej., EFAM/EMPAM), pero no debe usarse como diagnóstico universal.' }
+        ]
       },
       content: {
-        proposito: 'Mide cuánto tiempo se mantiene el apoyo sobre una pierna. Describe una tarea de equilibrio estático y permite comparar ambos lados bajo las mismas condiciones.',
-        costo: COSTO_PENDIENTE,
-        poblacion: 'Se ha estudiado en adultos de distintas edades. Los valores de referencia de Springer et al. corresponden a adultos sanos; no deben trasladarse automáticamente a pacientes neurológicos.',
-        descripcion: 'Registrar lado, ojos abiertos o cerrados, posición de brazos, calzado, número de intentos y tiempo en segundos. No mezclar protocolos al comparar. Finalizar el intento al apoyar el pie o necesitar ayuda.',
-        equipo: 'Cronómetro; suelo firme, plano y despejado; hoja para anotar cada pierna e intento. Evaluador al alcance del paciente para prevenir una caída. Una superficie de espuma corresponde a otra condición de prueba.',
-        tiempo: 'Unos 5 minutos como organización de la sesión del curso. El tiempo máximo de cada intento depende del protocolo seleccionado y debe registrarse.',
-        formacion: 'Profesional capaz de explicar y demostrar la posición, controlar el cronómetro y proteger ante pérdida de equilibrio. Documentar cualquier adaptación.',
-        validacion: 'Springer et al. (2007): 549 adultos sanos, con desempeño dependiente de la edad. Fiabilidad entre evaluadores alta para el mejor de tres intentos. No usar 5 segundos como diagnóstico universal.',
+        proposito: 'Identificar alteraciones del equilibrio estático, estabilidad monopodal y control postural. Mide cuánto tiempo se mantiene el apoyo sobre una pierna y permite comparar ambos lados bajo las mismas condiciones.',
+        costo: 'Gratuito o de costo muy bajo; no requiere equipos especializados.',
+        poblacion: 'Adultos y adultos mayores; personas con alteraciones del equilibrio, debilidad de miembros inferiores, Parkinson, ACV o riesgo de caídas. Nota: los valores normativos de Springer et al. corresponden a adultos sanos y no deben trasladarse automáticamente a pacientes neurológicos.',
+        descripcion: 'La persona permanece de pie y levanta un pie del suelo. Se mide cuánto tiempo mantiene la posición sin apoyar el pie elevado, tocar la otra pierna ni perder la postura definida por el protocolo. Se repite con la otra extremidad.',
+        equipo: 'Cronómetro, superficie firme, hoja de registro y lápiz. Profesional cerca para prevenir caídas. (Una superficie de espuma corresponde a otra condición de prueba).',
+        tiempo: 'Aproximadamente 1–5 minutos, según número de intentos y tiempo máximo.',
+        formacion: 'Profesional capaz de explicar y demostrar la posición, controlar el cronómetro y proteger ante pérdida de equilibrio. Documentar cualquier adaptación (ojos abiertos o cerrados, posición de brazos, calzado y tiempo máximo).',
+        validacion: 'Prueba funcional utilizada internacionalmente. Existen distintos protocolos y valores de referencia según edad, población y condiciones de aplicación; no existe un único punto de corte universal.',
         referencias: 'Springer BA, Marin R, Cyhan T, Roberts H, Gill NW. (2007). Normative values for the unipedal stance test with eyes open and closed. J Geriatr Phys Ther, 30(1), 8–15. DOI: 10.1519/00139143-200704000-00003. Guía: RehabMeasures, Single leg stance. https://pubmed.ncbi.nlm.nih.gov/19839175/'
       }
     },
@@ -847,10 +863,13 @@
         : '<div class="ngeq-card__section"><p class="ngeq-card__label">' + esc(more.label) + '</p><p>' + esc(more.text) + '</p></div>';
       body += '<button type="button" class="ngeq-link ngeq-link--plain" data-ngeq-action="more" data-more="0">← Volver a Cómo usar</button>';
     } else {
-      if (s.tab === 'descripcion' && t.figure) {
-        body += '<figure class="ngeq-figure ngeq-figure--card"><a href="' + this.o.assetsPath + t.figure.file + '" target="_blank" rel="noopener">' +
-          '<img src="' + this.o.assetsPath + t.figure.file + '" width="' + t.figure.width + '" height="' + t.figure.height + '" alt="' + esc(t.figure.alt) + '" loading="lazy"></a>' +
-          '<figcaption class="ngeq-footnote">' + esc(t.figure.caption) + ' Toca la imagen para ampliarla.</figcaption></figure>';
+      if (s.tab === 'descripcion' && (t.figure || t.figures)) {
+        var figs = t.figures || [t.figure];
+        body += figs.map(function (f) {
+          return '<figure class="ngeq-figure ngeq-figure--card"><a href="' + self.o.assetsPath + f.file + '" target="_blank" rel="noopener">' +
+            '<img src="' + self.o.assetsPath + f.file + '" width="' + f.width + '" height="' + f.height + '" alt="' + esc(f.alt) + '" loading="lazy"></a>' +
+            '<figcaption class="ngeq-footnote">' + esc(f.caption) + ' Toca la imagen para ampliarla.</figcaption></figure>';
+        }).join('');
       }
       if (s.tab === 'descripcion' && t.videos) {
         // `videosFirst`: los videos van al inicio de «Cómo usar», antes del texto
