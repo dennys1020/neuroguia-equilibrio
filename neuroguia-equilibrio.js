@@ -173,6 +173,7 @@
       titles: { validacion: 'Estandarización y países' },
       hideTabs: ['referencias'], // sin pestaña «Fuentes»
       videosFirst: true,         // videos al abrir «Cómo usar»
+      loadVideosOnPlay: true,    // no contactar con YouTube hasta pulsar reproducir
       sections: {
         proposito: [
           { label: 'Equilibrio y calidad de la marcha',
@@ -765,20 +766,25 @@
 
   /**
    * Reproductor de YouTube incrustado. Primero muestra la miniatura con un botón
-   * de reproducir; al pulsarlo se carga el iframe (youtube-nocookie, sin cookies
-   * hasta reproducir). Debajo queda el enlace para abrirlo en YouTube.
+   * de reproducir; al pulsarlo se carga el iframe de youtube-nocookie.
+   * loadOnPlay usa una portada local, sin pedir miniaturas a YouTube.
+   * Debajo queda el enlace para abrirlo en YouTube.
    */
-  P.player = function (v, title) {
+  P.player = function (v, title, loadOnPlay) {
     var id = ytId(v.url);
-    return '<div class="ngeq-player" data-ngeq-player>' + this.playerPoster(id, title) + '</div>' +
+    return '<div class="ngeq-player' + (loadOnPlay ? ' ngeq-player--deferred' : '') + '" data-ngeq-player' +
+      (loadOnPlay ? ' data-ngeq-load-on-play="true"' : '') + '>' + this.playerPoster(id, title, loadOnPlay) + '</div>' +
       '<p class="ngeq-player__caption"><span data-ngeq-player-title>' + esc(title) + '</span>' +
       '<a class="ngeq-card__link" data-ngeq-player-link href="' + esc(v.url) + '" target="_blank" rel="noopener noreferrer">Abrir en YouTube ↗' +
-      '<span class="ngeq-sr"> (se abre en una pestaña nueva)</span></a></p>';
+      '<span class="ngeq-sr"> (se abre en una pestaña nueva)</span></a></p>' +
+      (loadOnPlay ? '<p class="ngeq-footnote">El video se carga y reproduce solo al tocar ▶. Verlo consume datos de internet.</p>' : '');
   };
-  P.playerPoster = function (id, title) {
+  P.playerPoster = function (id, title, loadOnPlay) {
     return '<button type="button" class="ngeq-player__poster" data-ngeq-action="play" data-id="' + id + '" data-title="' + esc(title) + '"' +
       ' aria-label="Reproducir video: ' + esc(title) + '">' +
-      '<img class="ngeq-player__thumb" src="https://i.ytimg.com/vi/' + id + '/hqdefault.jpg" alt="" loading="lazy" onerror="this.remove()">' +
+      (loadOnPlay
+        ? '<span class="ngeq-player__placeholder">YouTube · ' + esc(title) + '</span>'
+        : '<img class="ngeq-player__thumb" src="https://i.ytimg.com/vi/' + id + '/hqdefault.jpg" alt="" loading="lazy" onerror="this.remove()">') +
       '<span class="ngeq-player__btn" aria-hidden="true"></span></button>';
   };
   P.playerFrame = function (id, title) {
@@ -788,11 +794,11 @@
   };
 
   /** Varios videos: un reproductor arriba y la lista para elegir cuál ver. */
-  P.videoList = function (list) {
+  P.videoList = function (list, loadOnPlay) {
     var self = this;
     var first = list.filter(function (v) { return ytId(v.url); })[0];
     return '<div class="ngeq-card__section"><p class="ngeq-card__label">Videos de demostración</p>' +
-      (first ? this.player(first, sinFlecha(first.label)) : '') +
+      (first ? this.player(first, sinFlecha(first.label), loadOnPlay) : '') +
       '<ul class="ngeq-vlist">' + list.map(function (v) {
         var id = ytId(v.url), on = v === first;
         var inner = self.icon('video', 18) + '<span><span class="ngeq-vlist__title">' + esc(v.label) + '</span>' +
@@ -835,6 +841,20 @@
           }).join('') + '</ul>' : '') + '</div>';
       }).join('');
     }
+    if (s.tool === 'tinetti' && s.tab === 'calculo') {
+      var pauta = esc(this.o.assetsPath + t.pdf.file);
+      body = '<div class="ngeq-card__section"><p>Consulta cada criterio en la pauta: equilibrio hasta 16 puntos y marcha hasta 12, para un total de 28. Registra los ítems según la versión utilizada.</p>' +
+        '<details class="ngeq-pdf"><summary>Ver pauta aquí · 2 páginas</summary>' +
+        '<p class="ngeq-footnote">Vista de consulta. Para registrar resultados, abre o descarga el PDF.</p>' +
+        '<div class="ngeq-pdf__controls" role="group" aria-label="Páginas de la pauta">' +
+        '<button type="button" class="ngeq-btn ngeq-btn--soft" data-ngeq-action="pdf-page" data-direction="-1" disabled aria-label="Página anterior">Anterior</button>' +
+        '<span data-ngeq-pdf-count role="status">Página 1 de 2</span>' +
+        '<button type="button" class="ngeq-btn ngeq-btn--soft" data-ngeq-action="pdf-page" data-direction="1" aria-label="Página siguiente">Siguiente</button></div>' +
+        '<a data-ngeq-pdf-image-link href="' + esc(this.o.assetsPath + 'pauta-tinetti-vista-1.jpg') + '" target="_blank" rel="noopener noreferrer" aria-label="Ampliar página de la pauta (pestaña nueva)">' +
+        '<img class="ngeq-pdf__page" data-ngeq-pdf-page="1" src="' + esc(this.o.assetsPath + 'pauta-tinetti-vista-1.jpg') + '" alt="Pauta Tinetti, página 1: criterios de equilibrio" loading="lazy"></a>' +
+        '<p class="ngeq-footnote">Toca la página para ampliarla.</p></details>' +
+        '<a class="ngeq-card__link" href="' + pauta + '" target="_blank" rel="noopener noreferrer">Abrir PDF original ↗<span class="ngeq-sr"> (pestaña nueva)</span></a></div>' + body;
+    }
     if (s.tab === 'proposito') {
       body += '<div class="ngeq-card__section"><p class="ngeq-card__label">Para quién</p><p>' + esc(t.content.poblacion) + '</p></div>';
     }
@@ -875,8 +895,8 @@
       }
       if (s.tab === 'descripcion' && t.videos) {
         // `videosFirst`: los videos van al inicio de «Cómo usar», antes del texto
-        if (t.videosFirst) body = this.videoList(t.videos) + body;
-        else body += this.videoList(t.videos);
+        if (t.videosFirst) body = this.videoList(t.videos, t.loadVideosOnPlay) + body;
+        else body += this.videoList(t.videos, t.loadVideosOnPlay);
       }
       if (s.tab === 'descripcion' && t.video) {
         if (ytId(t.video.url)) {
@@ -938,6 +958,20 @@
         this.navigate(Object.assign({}, this.state, { tab: d.tab }), { replace: true, keepScroll: true, keepFocus: true });
         var t = this.root.querySelector('#ngeq-tab-' + d.tab); if (t) t.focus();
         break;
+      case 'pdf-page': {
+        var viewer = el.closest('.ngeq-pdf');
+        if (!viewer) break;
+        var image = viewer.querySelector('[data-ngeq-pdf-page]');
+        var page = Math.max(1, Math.min(2, Number(image.dataset.ngeqPdfPage) + Number(d.direction)));
+        image.dataset.ngeqPdfPage = String(page);
+        image.src = this.o.assetsPath + 'pauta-tinetti-vista-' + page + '.jpg';
+        image.alt = 'Pauta Tinetti, página ' + page + ': criterios de ' + (page === 1 ? 'equilibrio' : 'marcha y registro total');
+        viewer.querySelector('[data-ngeq-pdf-image-link]').href = image.src;
+        viewer.querySelector('[data-ngeq-pdf-count]').textContent = 'Página ' + page + ' de 2';
+        viewer.querySelector('[data-direction="-1"]').disabled = page === 1;
+        viewer.querySelector('[data-direction="1"]').disabled = page === 2;
+        break;
+      }
       case 'play': {
         var box = el.closest('[data-ngeq-player]');
         if (box) box.innerHTML = this.playerFrame(d.id, d.title);
@@ -947,7 +981,8 @@
         var sec = el.closest('.ngeq-card__section');
         var player = sec && sec.querySelector('[data-ngeq-player]');
         if (!player) break;
-        player.innerHTML = this.playerFrame(d.id, d.title);
+        var loadOnPlay = player.dataset.ngeqLoadOnPlay === 'true';
+        player.innerHTML = loadOnPlay ? this.playerPoster(d.id, d.title, true) : this.playerFrame(d.id, d.title);
         sec.querySelector('[data-ngeq-player-title]').textContent = d.title;
         sec.querySelector('[data-ngeq-player-link]').href = d.url;
         Array.prototype.forEach.call(sec.querySelectorAll('[data-ngeq-action="pick"]'), function (b) {
@@ -956,7 +991,9 @@
           b.setAttribute('aria-pressed', String(on));
         });
         player.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
-        this.live.textContent = 'Reproduciendo: ' + d.title;
+        this.live.textContent = loadOnPlay
+          ? 'Video seleccionado: ' + d.title + '. Pulsa reproducir para verlo.'
+          : 'Reproduciendo: ' + d.title;
         break;
       }
       case 'more':
