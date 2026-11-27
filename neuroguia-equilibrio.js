@@ -284,7 +284,7 @@
       }
     },
     tug: {
-      stats: [['1', 'recorrido de 3 m'], ['3–4', 'minutos'], ['—', 'costo por confirmar']],
+      stats: [['1', 'recorrido de 3 m'], ['3–4', 'minutos'], ['Sin', 'costo asociado']],
       need: ['Silla con respaldo y apoyabrazos', 'Marca o cono a 3 m', 'Cronómetro'],
       keys: 'timed up and go levantate anda levantarse caminar marcha caidas silla 3 metros',
       short: 'Timed Up and Go', name: 'Timed Up and Go (TUG)', area: 'Equilibrio dinámico', subarea: 'dinamico',
@@ -319,10 +319,31 @@
           ]
         }
       },
+      sections: {
+        proposito: [
+          { label: 'Diagnóstico / evaluación',
+            text: 'No es una prueba diagnóstica de una enfermedad específica, sino una herramienta de cribado y evaluación funcional. Identifica el riesgo de caídas, mide la movilidad y el equilibrio, y puede predecir el riesgo de institucionalización (ingreso en residencia) y muerte en poblaciones mayores.' }
+        ],
+        validacion: [
+          { label: 'Limitación',
+            text: 'Su capacidad para predecir caídas en adultos mayores sanos que viven en la comunidad es menor en comparación con su utilidad en personas con deterioro funcional.' },
+          { label: 'Estándares médicos (valores de referencia)',
+            text: 'No existe un único punto de corte universal, pero se utilizan comúnmente los siguientes rangos para interpretar el riesgo de caídas en adultos mayores:',
+            list: ['< 10 segundos: movilidad normal e independiente, bajo riesgo de caídas en poblaciones sanas.',
+                   '10–20 segundos: movilidad variable. En personas mayores frágiles, un tiempo < 20 s indica que son independientes para la movilidad.',
+                   '≥ 12 segundos: se considera un indicador de riesgo de caídas en algunos protocolos de cribado.',
+                   '≥ 13,5 segundos: punto de corte sugerido por algunos metaanálisis para detectar riesgo de caídas.',
+                   '≥ 14 segundos: punto de corte convencional para discriminar entre personas mayores sanas con y sin riesgo de caída.',
+                   '> 30 segundos: en personas mayores frágiles, indica que necesitan asistencia para las tareas de movilidad.',
+                   '≥ 35 segundos: predice un mayor riesgo de caídas (razón de verosimilitud de 2,6).'] },
+          { label: 'Nota importante',
+            text: 'La interpretación del TUG debe realizarse siempre en conjunto con la historia clínica, el examen físico y otros factores de riesgo del paciente, y no debe usarse como único criterio aislado para predecir caídas.' }
+        ]
+      },
       content: {
         proposito: 'Cuantifica movilidad funcional: levantarse de una silla, caminar 3 m, girar, regresar y sentarse. Se registra el tiempo y se observa la calidad del movimiento.',
-        costo: COSTO_PENDIENTE,
-        poblacion: 'Personas mayores.',
+        costo: 'Sin costo asociado: no requiere software propietario ni equipos desechables. Solo se necesita el equipo básico (silla, cronómetro, cinta métrica), que suele estar disponible en cualquier entorno clínico.',
+        poblacion: 'Principalmente adultos mayores (especialmente quienes tienen fragilidad o deterioro funcional) y personas con condiciones neurológicas o geriátricas. También se usa en pacientes post-ictus.',
         descripcion: 'Desde una silla con apoyabrazos: levantarse, caminar 3 m a paso habitual, girar, volver y sentarse. Cronometrar desde la orden de inicio hasta sentarse de nuevo. Registrar segundos, ayuda de marcha y observaciones.',
         equipo: 'Silla estándar estable con apoyabrazos; cronómetro; cinta métrica y marca a 3 m; recorrido despejado. Calzado habitual y ayuda de marcha si se utiliza. El evaluador acompaña cerca para proteger.',
         tiempo: 'El documento del curso reserva 3–4 minutos para preparar y aplicar. El resultado del recorrido se expresa en segundos; no confundir ambos tiempos.',
